@@ -1,0 +1,8 @@
+.link-items {
+  color: rgb(28, 0, 237);
+}
+
+.link-items a {
+  text-decoration: none;
+  /* color: rgb(219, 39, 162); */
+}
