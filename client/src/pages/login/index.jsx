@@ -2,6 +2,9 @@ import "./style.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useState, useEffect } from "react";
+import Axios from "axios";
+
 // import Input from "./components/Input";
 
 // const Login = () => {
@@ -47,6 +50,17 @@ import * as yup from "yup";
 // };
 
 const Login = () => {
+  const [logins, setLogins] = useState([]);
+
+  const getLogins = async () => {
+    const response = await Axios.get("http://localhost:3000/users/login");
+    setLogins(response.data);
+  };
+
+  useEffect(() => {
+    getLogins();
+  }, []);
+
   const schema = yup.object().shape({
     username: yup.string().required(),
 
@@ -68,6 +82,16 @@ const Login = () => {
 
   return (
     <div className="login-form">
+      {/* <ul>
+        {logins &&
+          logins.map((login) => {
+            return (
+              <li key={login.id}>
+                <h1>{login.username}</h1>
+              </li>
+            );
+          })}
+      </ul> */}
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>

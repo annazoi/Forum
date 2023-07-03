@@ -1,0 +1,114 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
+  text-align: center;
+}
+
+.post-title {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  /* width: 600px; */
+  padding: 10px 195px;
+  border: none;
+  font-size: 17px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.post-title input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px #fff solid;
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 18px;
+  color: #fff;
+}
+
+.post-title input:focus,
+.post-title input:valid {
+  outline: auto;
+  border-bottom-color: lightblue;
+}
+
+.post-descriction {
+  flex-direction: column;
+  position: relative;
+  margin: auto;
+  display: flex;
+  text-align: center;
+  /* width: 600px; */
+  padding: 40px 200px;
+  border: none;
+  font-size: 17px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 2px;
+  font-weight: 100;
+  text-transform: lowercase;
+  transition: 0.1s;
+  /* transition-property: box-shadow; */
+}
+
+.post-descriction input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px #fff solid;
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.post-descriction input:focus,
+.post-descriction input:valid {
+  outline: auto;
+  border-bottom-color: lightblue;
+}
+
+.post-button {
+  padding: 10px 20px;
+  border: none;
+  font-size: 17px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+  margin: 30px;
+}
+
+.post-button {
+  background: rgb(0, 140, 255);
+  box-shadow: 0 0 25px rgb(0, 140, 255);
+}
+
+.post-button:hover {
+  box-shadow: 0 0 5px rgb(0, 140, 255), 0 0 25px rgb(0, 140, 255),
+    0 0 50px rgb(0, 140, 255), 0 0 100px rgb(0, 140, 255);
+}
+
+h1 {
+  color: rgb(169, 148, 148);
+  text-transform: uppercase;
+  padding: 20px 20px;
+  border: none;
+  font-size: 17px;
+  color: #fff;
+  letter-spacing: 4px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 10px;
+}

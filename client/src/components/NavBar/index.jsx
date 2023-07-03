@@ -15,7 +15,7 @@ const NavBar = () => {
     },
     {
       path: "/menu",
-      label: "Menu",
+      label: "Home",
       // color: "red"
     },
   ];

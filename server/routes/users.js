@@ -3,22 +3,21 @@ const router = express.Router();
 
 const User = require("../model/User");
 
-router.get("/", (req, res) => {
-  res.send("Register Page");
+router.get("/", async (req, res) => {
+  // find() -> Get all users
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.json({ message: err });
+  }
+  s;
 });
 
-router.post("/", async (req, res) => {
-  const user = new User({
-    name: req.body.name,
-    surname: req.body.surname,
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    confirmPassword: req.body.confirmPassword,
-  });
+router.delete("/:id", async (req, res) => {
   try {
-    const savedUser = await user.save();
-    res.json(savedUser);
+    const removedUser = await User.deleteOne({ _id: req.params.id });
+    res.json(removedUser);
   } catch (err) {
     res.json({ message: err });
   }

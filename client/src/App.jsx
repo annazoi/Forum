@@ -8,20 +8,9 @@ import Axios from "axios";
 import Menu from "./pages/menu";
 
 function App() {
-  const [posts, setPosts] = useState("");
-
-  const getPosts = async () => {
-    const response = await Axios.get("http://localhost:3000/getData");
-    setPosts(response.posts);
-  };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
   return (
     <>
       <div>
-        {posts}
         <BrowserRouter>
           <NavBar />
           <Routes>

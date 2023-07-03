@@ -39,7 +39,7 @@
   text-transform: uppercase;
   transition: 0.5s;
   transition-property: box-shadow;
-  margin: 50px;
+  margin: 10px, 10px;
 }
 
 .register-button {

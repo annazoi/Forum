@@ -2,6 +2,8 @@ import "./style.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useState, useEffect } from "react";
+import Axios from "axios";
 
 // const Register = () => {
 //   const datas = [
@@ -61,6 +63,17 @@ import * as yup from "yup";
 // };
 
 const Register = () => {
+  const [registers, setRegisters] = useState([]);
+
+  const getRegisters = async () => {
+    const response = await Axios.get("http://localhost:3000/users/register");
+    setRegisters(response.data);
+  };
+
+  useEffect(() => {
+    getRegisters();
+  }, []);
+
   const schema = yup.object().shape({
     name: yup.string().required(),
     surname: yup.string().required(),
@@ -96,6 +109,17 @@ const Register = () => {
   return (
     <div className="register-form">
       <h1>Register</h1>
+      {/* <ul>
+        {registers &&
+          registers.map((register) => {
+            return (
+              <li key={register.id}>
+                <h1>{register.name}</h1>
+              </li>
+            );
+          })}
+      </ul> */}
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <ul className="forum-container">
           <input

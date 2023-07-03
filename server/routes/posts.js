@@ -9,9 +9,9 @@ const Post = require("../model/Post");
 // });
 
 // http://localhost:3000/posts/specific
-// router.get("/specific", (req, res) => {
-//   res.send("inside the specific post");
-// });
+router.get("/specific", (req, res) => {
+  res.send("inside the specific post");
+});
 
 // Get all posts
 router.get("/", async (req, res) => {
@@ -80,7 +80,7 @@ router.patch("/:postID", async (req, res) => {
 // Delete a post
 router.delete("/:postID", async (req, res) => {
   try {
-    const removePost = await Post.remove({ _id: req.params.postID });
+    const removePost = await Post.deleteOne({ _id: req.params.postID });
 
     res.json(removePost);
   } catch (err) {
