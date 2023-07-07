@@ -1,42 +1,69 @@
-import { useState, useEffect } from "react";
+import Button from "../../components/ui/Button";
+import { API_URL } from "../../constants";
 import "./style.css";
 import Axios from "axios";
+import { useForm } from "react-hook-form";
+import Input from "../../components/ui/Input";
+import { usePostHook } from "../../hooks/postHook";
+import { useEffect } from "react";
+import { postSchema } from "../../validation-schemas/post";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Textarea from "../../components/ui/Textarea";
 
 const Menu = () => {
-  const [posts, setPosts] = useState([]);
+  const { postUser, data, loading } = usePostHook();
 
-  const getPosts = async () => {
-    const response = await Axios.get("http://localhost:3000/posts");
-    setPosts(response.data);
-  };
+  const { register, handleSubmit } = useForm({
+    resolver: yupResolver(postSchema),
+  });
 
   useEffect(() => {
-    getPosts();
-  }, []);
+    if (!data) return;
+    if (data) return alert("Successfully Uploading");
+    console.log(data);
+  }, [data]);
+
+  const onSubmit = (data) => {
+    postUser(data);
+    console.log(data);
+  };
+
+  // const getAlert = () => {
+  //   alert("ee");
+  // };
 
   return (
     <div>
-      {/* <ul>
-        {posts &&
-          posts.map((post) => {
-            return (
-              <li key={post.id}>
-                <h1>{post.title}</h1>
-              </li>
-            );
-          })}
-      </ul> */}
       <h1>Start a forum with a new post</h1>
-      <form className="input">
-        <input className="post-title" type="text" placeholder="title"></input>
-        <textarea
-          type="text"
-          className="post-descriction"
-          placeholder="share a thought"
-          post="title"></textarea>
+      {/* <Button onClick={getAlert} /> */}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <ul className="input">
+            <Input
+              className="post-title"
+              name="title"
+              type="text"
+              placeholder="Title"
+              register={register}
+            />
+            <Textarea
+              className="post-descriction"
+              name="description"
+              type="text"
+              placeholder="Share a Thought"
+              register={register}
+            />
+            {/* <Input
+              className="post-descriction"
+              name="description"
+              type="text"
+              placeholder="Share a Thought"
+              register={register}
+            /> */}
+            <Button type="submit" label={loading ? "Loading" : "Post"} />
+          </ul>
+        </div>
       </form>
-
-      <input className="post-button" type="submit"></input>
     </div>
   );
 };

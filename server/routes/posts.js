@@ -3,15 +3,14 @@ const router = express.Router();
 
 const Post = require("../model/Post");
 
-// Page with all posts
-// router.get("/", (req, res) => {
-//   res.send("inside all posts");
-// });
+// const createController = require("../controllers/posts");
+// const removeController = require("../controllers/posts");
+// const updateController = require("../controllers/posts");
 
-// http://localhost:3000/posts/specific
-router.get("/specific", (req, res) => {
-  res.send("inside the specific post");
-});
+// Save / Delete / Update a post
+// router.post("/", createController.post);
+// router.delete("/:id", removeController.post);
+// router.patch("/:id", updateController.post);
 
 // Get all posts
 router.get("/", async (req, res) => {
@@ -24,7 +23,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Save a post
 router.post("/", async (req, res) => {
   const post = new Post({
     title: req.body.title,
@@ -37,52 +35,14 @@ router.post("/", async (req, res) => {
   } catch (err) {
     res.json({ message: err });
   }
-
-  //   post
-  //     .save()
-  //     .then((data) => {
-  //       res.json(data);
-  //     })
-  //     .catch((err) => {
-  //       res.json({ message: err });
-  //     });
 });
 
 // Get a specific post
-router.get("/:postID", async (req, res) => {
+router.get("/:id", async (req, res) => {
   // res.send(req.params.postID);
   try {
     const post = await Post.findById(req.params.postID);
     res.json(post);
-  } catch (err) {
-    res.json({ message: err });
-  }
-});
-
-// Update the specific post
-router.patch("/:postID", async (req, res) => {
-  try {
-    const updatesPost = await Post.updateOne(
-      { _id: req.params.postID },
-      {
-        $set: {
-          title: req.body.title,
-          description: req.body.description,
-        },
-      }
-    );
-    res.json(updatesPost);
-  } catch (err) {
-    res.json({ message: err });
-  }
-});
-
-// Delete a post
-router.delete("/:postID", async (req, res) => {
-  try {
-    const removePost = await Post.deleteOne({ _id: req.params.postID });
-
-    res.json(removePost);
   } catch (err) {
     res.json({ message: err });
   }

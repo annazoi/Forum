@@ -2,169 +2,88 @@ import "./style.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState, useEffect } from "react";
 import Axios from "axios";
-
-// const Register = () => {
-//   const datas = [
-//     {
-//       id: 0,
-//       placeholder: "name *",
-//       name: "nameText",
-//     },
-//     {
-//       id: 1,
-//       placeholder: "surname *",
-//       name: "surnameText",
-//     },
-//     {
-//       id: 2,
-//       placeholder: "username *",
-//       name: "usernameText",
-//     },
-//     {
-//       id: 3,
-//       placeholder: "email *",
-//       name: "emailText",
-//     },
-//     {
-//       id: 4,
-//       placeholder: "password *",
-//       name: "pswText",
-//     },
-//     {
-//       id: 5,
-//       placeholder: "confirm password *",
-//       name: "pswText",
-//     },
-//   ];
-//   return (
-//     <div className="register-form">
-//       <h1>Register</h1>
-//       <form>
-//         <div>
-//           <ul className="input-container">
-//             {datas.map((data, index) => {
-//               return (
-//                 <input
-//                   key={index.id}
-//                   type="value"
-//                   placeholder={data.placeholder}
-//                   data={data.name}
-//                   required></input>
-//               );
-//             })}
-//           </ul>
-//           <input className="register-button" type="submit" />
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
+import Input from "../../components/ui/Input";
+import { API_URL } from "../../constants";
+import Button from "../../components/ui/Button";
+import { registerSchema } from "../../validation-schemas/auth";
+import { useAuthHook } from "../../hooks/authHook";
+import { useEffect } from "react";
 
 const Register = () => {
-  const [registers, setRegisters] = useState([]);
-
-  const getRegisters = async () => {
-    const response = await Axios.get("http://localhost:3000/users/register");
-    setRegisters(response.data);
-  };
-
-  useEffect(() => {
-    getRegisters();
-  }, []);
-
-  const schema = yup.object().shape({
-    name: yup.string().required(),
-    surname: yup.string().required(),
-    username: yup.string().required(),
-    email: yup.string().email().required(),
-    // password: yup
-    //   // .string()
-    //   .number()
-    //   .positive()
-    //   .integer()
-    //   .min(8)
-    //   .max(12)
-    //   .required(),
-    password: yup.number().required("only numbers"),
-    confirmPsw: yup
-      .number()
-      .oneOf([yup.ref("password"), null])
-      .required("invalid password"),
-  });
-
+  const { registerUser, loading, error, data } = useAuthHook();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registerSchema),
   });
+
+  useEffect(() => {
+    if (!data) return;
+    if (data.token) return alert("Successfully Creating");
+  }, [data]);
 
   const onSubmit = (data) => {
     console.log(data);
+    registerUser(data);
   };
 
   return (
     <div className="register-form">
       <h1>Register</h1>
-      {/* <ul>
-        {registers &&
-          registers.map((register) => {
-            return (
-              <li key={register.id}>
-                <h1>{register.name}</h1>
-              </li>
-            );
-          })}
-      </ul> */}
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ul className="forum-container">
-          <input
+        <ul className="input-container">
+          <Input
+            name="name"
             type="text"
-            placeholder="name *"
-            data="name"
-            {...register("name")}
+            placeholder="Name"
+            register={register}
+            error={errors.name?.message}
           />
-          <p>{errors.name?.message}</p>
-          <input
+          <Input
+            name="surname"
             type="text"
-            placeholder="surname *"
-            data="surname"
-            {...register("surname")}
+            placeholder="Surname"
+            register={register}
+            error={errors.surname?.message}
           />
-          <p>{errors.surname?.message}</p>
-          <input
+
+          <Input
+            name="username"
             type="text"
-            placeholder="username *"
-            data="username"
-            {...register("username")}
+            placeholder="Username"
+            register={register}
+            error={errors.username?.message}
           />
-          <p>{errors.username?.message}</p>
-          <input
-            type="text"
-            placeholder="email *"
-            data="email"
-            {...register("email")}
+
+          <Input
+            name="email"
+            type="email"
+            placeholder="Email"
+            register={register}
+            error={errors.email?.message}
           />
-          <p>{errors.email?.message}</p>
-          <input
+
+          <Input
+            name="password"
             type="password"
-            placeholder="password *"
-            data="password"
-            {...register("password")}
+            placeholder="Password"
+            register={register}
+            error={errors.password?.message}
           />
-          <p>{errors.password?.message}</p>
-          <input
+
+          <Input
+            name="confirmPassword"
             type="password"
-            placeholder="confirm password *"
-            data="confirmPsw"
-            {...register("confirmPsw")}
+            placeholder="Confirm Password"
+            register={register}
+            error={errors.confirmPassword?.message}
           />
-          <p>{errors.confirmPsw?.message}</p>
-          <input className="register-button" type="submit"></input>
+          {error && <p>{error}</p>}
+          <Button type="submit" label={loading ? "Loanding" : "Sign Up"} />
         </ul>
       </form>
     </div>

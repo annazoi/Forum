@@ -1,29 +1,29 @@
 .input-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 1px;
   margin: 10px;
 }
-.register-form {
+.input-container {
   position: relative;
   margin: auto;
   text-align: center;
   width: 400px;
 }
 
-.register-form input {
+.input-container input {
   background-color: transparent;
   border: 0;
   border-bottom: 2px #fff solid;
   display: block;
   width: 100%;
-  padding: 15px 0;
+  padding: 8px 0;
   font-size: 18px;
   color: #fff;
 }
 
-.register-form input:focus,
-.register-form input:valid {
+.input-container input:focus,
+.input-container input:valid {
   outline: 0;
   border-bottom-color: lightblue;
 }
@@ -51,7 +51,6 @@
   box-shadow: 0 0 5px rgb(0, 140, 255), 0 0 25px rgb(0, 140, 255),
     0 0 50px rgb(0, 140, 255), 0 0 100px rgb(0, 140, 255);
 }
-
-p {
+.error-container {
   color: red;
 }

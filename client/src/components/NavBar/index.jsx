@@ -18,6 +18,11 @@ const NavBar = () => {
       label: "Home",
       // color: "red"
     },
+    {
+      path: "/profile",
+      label: "Profile",
+      color: "orange",
+    },
   ];
 
   return (

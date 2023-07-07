@@ -1,83 +1,32 @@
 import "./style.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useState, useEffect } from "react";
-import Axios from "axios";
-
-// import Input from "./components/Input";
-
-// const Login = () => {
-//   const datas = [
-//     {
-//       id: 0,
-//       placeholder: "username *",
-//       name: "username",
-//       type: "text",
-//     },
-//     {
-//       id: 1,
-//       placeholder: "password *",
-//       name: "password",
-//       type: "password",
-//     },
-//   ];
-
-//   return (
-//     <div className="login-form">
-//       <h1>Sign In</h1>
-//       <form>
-//         <div>
-//           <ul className="input-container">
-//             {datas.map((data, index) => {
-//               return (
-//                 <>
-//                   <input
-//                     key={index.id}
-//                     type={data.type}
-//                     placeholder={data.placeholder}
-//                     data={data.dataText}
-//                   />
-//                 </>
-//               );
-//             })}
-//           </ul>
-//           <input className="login-button  " type="submit" />
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
+import Input from "../../components/ui/Input";
+import Button from "../../components/ui/Button";
+import { loginSchema } from "../../validation-schemas/auth";
+import { useAuthHook } from "../../hooks/authHook";
+import { useEffect } from "react";
 
 const Login = () => {
-  const [logins, setLogins] = useState([]);
-
-  const getLogins = async () => {
-    const response = await Axios.get("http://localhost:3000/users/login");
-    setLogins(response.data);
-  };
-
-  useEffect(() => {
-    getLogins();
-  }, []);
-
-  const schema = yup.object().shape({
-    username: yup.string().required(),
-
-    // password: yup.number().positive().integer().min(8).max(12).required(),
-    password: yup.number().required(),
-  });
+  const { loginUser, loading, error, data } = useAuthHook();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
   });
+
+  useEffect(() => {
+    if (!data) return;
+    if (data.token) return alert("Successfully Connection");
+    console.log(data);
+  }, [data]);
 
   const onSubmit = (data) => {
     console.log(data);
+    loginUser(data);
   };
 
   return (
@@ -96,22 +45,24 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <ul className="input-container">
-            <input
+            <Input
+              name="email"
               type="text"
-              placeholder="username *"
-              data="username"
-              {...register("username")}
+              placeholder="Email"
+              register={register}
+              error={errors.email?.message}
             />
-            <p>{errors.username?.message}</p>
-            <input
+            <Input
+              name="password"
               type="password"
-              placeholder="password *"
-              data="password"
-              {...register("password")}
+              placeholder="Password"
+              register={register}
+              error={errors.password?.message}
             />
-            <p>{errors.password?.message}</p>
+            {error && <p className="error-container">{error}</p>}
+
+            <Button type="submit" label={loading ? "Loading" : "Sign In"} />
           </ul>
-          <input className="login-button  " type="submit" />
         </div>
       </form>
     </div>

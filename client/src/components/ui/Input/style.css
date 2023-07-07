@@ -1,18 +1,11 @@
 .input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 10px;
-  text-align: center;
-}
-.login-form {
   position: relative;
   margin: auto;
   text-align: center;
   width: 400px;
 }
 
-.login-form input {
+.input-container input {
   background-color: transparent;
   border: 0;
   border-bottom: 2px #fff solid;
@@ -23,8 +16,8 @@
   color: #fff;
 }
 
-.login-form input:focus,
-.login-form input:valid {
+.input-container input:focus,
+.input-container input:valid {
   outline: 0;
   border-bottom-color: lightblue;
 }
