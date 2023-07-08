@@ -6,23 +6,23 @@ import Register from "./pages/register";
 import Profile from "./pages/profile";
 import NavBar from "./components/NavBar";
 import Axios from "axios";
-import Menu from "./pages/menu";
+import Home from "./pages/home";
+import Post from "./pages/post";
 
 function App() {
   return (
-    <>
-      <div>
-        <BrowserRouter>
-          <NavBar />
-          <Routes>
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </>
+    <div className="main-container">
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/posts" element={<Post />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

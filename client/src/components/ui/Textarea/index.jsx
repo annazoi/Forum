@@ -8,11 +8,11 @@ const Textarea = ({
   props,
   register,
   error,
-  className = "post-description",
+  className = "",
 }) => {
   return (
     <textarea
-      className={className}
+      className={`text-area ${className}`}
       type={type}
       placeholder={placeholder}
       value={value}

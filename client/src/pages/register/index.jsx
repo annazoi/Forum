@@ -35,7 +35,7 @@ const Register = () => {
       <h1>Register</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ul className="input-container">
+        <div className="inputs-container">
           <Input
             name="name"
             type="text"
@@ -84,7 +84,7 @@ const Register = () => {
           />
           {error && <p>{error}</p>}
           <Button type="submit" label={loading ? "Loanding" : "Sign Up"} />
-        </ul>
+        </div>
       </form>
     </div>
   );

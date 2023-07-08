@@ -7,19 +7,19 @@ const Input = ({
   props,
   register,
   error,
-  className = "input-container",
+  className = "",
 }) => {
   return (
     <>
       <input
-        className={className}
+        className={`input-container ${className}`}
         type={type}
         placeholder={placeholder}
         value={value}
         {...props}
         {...register(name)}
       />
-      <p className="error-container">{error}</p>
+      {error && <p className="error-container">{error}</p>}
     </>
   );
 };

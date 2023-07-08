@@ -1,23 +1,15 @@
 .input-container {
-  position: relative;
-  margin: auto;
   text-align: center;
-  width: 400px;
-}
-
-.input-container input {
   background-color: transparent;
   border: 0;
   border-bottom: 2px #fff solid;
-  display: block;
   width: 100%;
   padding: 15px 0;
   font-size: 18px;
   color: #fff;
 }
 
-.input-container input:focus,
-.input-container input:valid {
+.input-container:focus {
   outline: 0;
   border-bottom-color: lightblue;
 }

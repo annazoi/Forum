@@ -1,35 +1,14 @@
-.post-descriction {
-  flex-direction: column;
-  position: relative;
-  margin: auto;
-  display: flex;
+.text-area {
   text-align: center;
-  /* width: 600px; */
-  padding: 40px 200px;
-  border: none;
   font-size: 17px;
   color: #fff;
   border-radius: 7px;
   letter-spacing: 2px;
-  font-weight: 100;
   text-transform: lowercase;
-  transition: 0.1s;
-  /* transition-property: box-shadow; */
+  min-height: 200px;
 }
 
-.post-descriction input {
-  background-color: transparent;
-  border: 0;
-  border-bottom: 2px #fff solid;
-  display: block;
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  color: #fff;
-}
-
-.post-descriction input:focus,
-.post-descriction input:valid {
+.text-area:focus {
   outline: auto;
   border-bottom-color: lightblue;
 }

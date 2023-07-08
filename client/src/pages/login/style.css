@@ -1,34 +1,6 @@
-.input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 10px;
-  text-align: center;
-}
 .login-form {
   position: relative;
   margin: auto;
   text-align: center;
-  width: 400px;
-}
-
-.login-form input {
-  background-color: transparent;
-  border: 0;
-  border-bottom: 2px #fff solid;
-  display: block;
-  width: 100%;
-  padding: 15px 0;
-  font-size: 18px;
-  color: #fff;
-}
-
-.login-form input:focus,
-.login-form input:valid {
-  outline: 0;
-  border-bottom-color: lightblue;
-}
-
-.error-container {
-  color: red;
+  max-width: 400px;
 }
