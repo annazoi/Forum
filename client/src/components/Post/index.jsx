@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import "./style.css";
 import { usePostHook } from "../../hooks/postHook";
+import "./style.css";
 
 const Post = ({ posts }) => {
   return (
-    <>
+    <div className="posts-container">
       {posts.map((post, index) => {
         return (
           <div key={index} className="post-container">
@@ -15,7 +15,7 @@ const Post = ({ posts }) => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

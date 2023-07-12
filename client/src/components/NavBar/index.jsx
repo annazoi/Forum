@@ -4,7 +4,7 @@ import { authStore } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-  const { isLoggedIn } = authStore((store) => store);
+  const { isLoggedIn, userId } = authStore((store) => store);
 
   const { logOut } = authStore((store) => store);
 
@@ -19,33 +19,28 @@ const NavBar = () => {
     {
       path: "/login",
       label: "Login",
-      color: "red",
+      color: "purple",
     },
     {
       path: "/register",
       label: "Register",
-      color: "green",
+      color: "purple",
     },
     {
       path: "/home",
       label: "Home",
-
-      // color: "red"
+      color: "purple",
     },
     {
       path: "/profile",
       label: "Profile",
-      color: "orange",
-    },
-    {
-      path: "/posts",
-      label: "Posts",
       color: "purple",
+      // onPress: users,
     },
     {
       label: "Logout",
       onPress: logoutUser,
-      color: "grey",
+      // color: "purple",
     },
   ];
 
@@ -58,12 +53,15 @@ const NavBar = () => {
   return (
     <div className="nav-bar-container">
       <p>LoggedIN: {`${isLoggedIn}`}</p>
-      <ul className="link-items">
+      <p>UserId: {`${userId}`}</p>
+
+      <div className="link-items">
         {links.map((link, index) => {
           return (
             <Link
               key={index}
-              style={{ color: link.color ? link.color : "yellow" }}
+              className="link-content"
+              style={{ color: link.color ? link.color : "pink" }}
               to={link.path}
               onClick={() => onClick(link)}>
               {" "}
@@ -71,7 +69,7 @@ const NavBar = () => {
             </Link>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -8,17 +8,17 @@ import { postSchema } from "../../validation-schemas/post";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Textarea from "../../components/ui/Textarea";
 import { authStore } from "../../store/auth";
-import { Navigate, useNavigate } from "react-router-dom";
 import Post from "../../components/Post";
+import Linkpost from "../../components/Linkpost";
 
 const Home = () => {
-  const { isLoggedIn } = authStore((store) => store);
+  const { isLoggedIn, userId } = authStore((store) => store);
 
-  const { createPost, getPosts, loading } = usePostHook();
+  const { createPost, getPosts, loading, id } = usePostHook();
 
   const [posts, setPosts] = useState([]);
 
-  const navigate = useNavigate();
+  // const refresh = () => window.location.reload(true);
 
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(postSchema),
@@ -28,7 +28,7 @@ const Home = () => {
     const getAllPosts = async () => {
       const posts = await getPosts();
       setPosts(posts.data);
-      console.log(posts);
+      // console.log(posts);
     };
     getAllPosts();
   }, []);
@@ -37,7 +37,7 @@ const Home = () => {
     if (isLoggedIn) {
       createPost(data);
       // console.log(data);
-    } else return alert("sundesou");
+    } else return alert("connect first or error with id");
   };
 
   return (
@@ -57,9 +57,15 @@ const Home = () => {
           placeholder="Share a Thought"
           register={register}
         />
-        <Button type="submit" label={loading ? "Loading" : "Post"} />
+        <Button
+          type="submit"
+          label={loading ? "Loading" : "Post"}
+          // onClick={refresh}
+        />
       </form>
-      <Post posts={posts} />
+
+      {/* <Post posts={posts} /> */}
+      <Linkpost posts={posts} to={"/posts"}></Linkpost>
     </div>
   );
 };

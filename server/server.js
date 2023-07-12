@@ -6,21 +6,14 @@ const cors = require("cors");
 
 // Import the Routes
 const postRoutes = require("./routes/posts");
-const usersRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(cors());
 
-// Middle ware
-// app.use("/posts", () => {
-//   console.log("this is middleware");
-// });
-
 // Import the Routes
 app.use("/posts", postRoutes);
-app.use("/users", usersRoutes);
 app.use("/auth", authRoutes);
 // ROUTES
 // GET() -> fetch the data

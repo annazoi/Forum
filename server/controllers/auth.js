@@ -129,47 +129,36 @@ const login = async (req, res, next) => {
   });
 };
 
-const post = async (req, res) => {
-  const post = new Post({
-    title: req.body.title,
-    description: req.body.description,
-  });
-
+const getUsers = async (req, res) => {
+  // find() -> Get all users
   try {
-    const savedPost = await post.save();
-    res.json(savedPost);
+    const users = await User.find();
+    res.json(users);
   } catch (err) {
     res.json({ message: err });
   }
 };
 
-// const removePost = async (req, res) => {
-//   try {
-//     const removePost = await Post.deleteOne({ _id: req.params.postID });
+const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.json(user);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
 
-//     res.json(removePost);
-//   } catch (err) {
-//     res.json({ message: err });
-//   }
-// };
-
-// const updatedPost = async (req, res) => {
-//   try {
-//     const updatedPost = await Post.updateOne(
-//       { _id: req.params.postID },
-//       {
-//         $set: {
-//           title: req.body.title,
-//           description: req.body.description,
-//         },
-//       }
-//     );
-//     res.json(updatedPost);
-//   } catch (err) {
-//     res.json({ message: err });
-//   }
-// };
+const deleteUser = async (req, res) => {
+  try {
+    const removedUser = await User.deleteOne({ _id: req.params.id });
+    res.json(removedUser);
+  } catch (err) {
+    res.json({ message: err });
+  }
+};
 
 exports.register = register;
 exports.login = login;
-exports.post = post;
+exports.getUsers = getUsers;
+exports.getUser = getUser;
+exports.deleteUser = deleteUser;

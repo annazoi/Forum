@@ -6,6 +6,7 @@ import { shallow } from "zustand/shallow";
 const initialStateValues = {
   isLoggedIn: false,
   token: "",
+  userId: "",
 };
 
 export const authStore = create()(
@@ -22,6 +23,7 @@ export const authStore = create()(
           set({
             isLoggedIn: true,
             token: payload.token,
+            userId: payload.userId,
           }),
       }),
       {

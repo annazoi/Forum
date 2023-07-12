@@ -12,8 +12,8 @@ export const useAuthHook = () => {
       setLoading(true);
       const response = await Axios.post(`${API_URL}auth/login`, data);
       setLoading(false);
-      //   console.log(response);
       setData(response.data);
+      console.log(response.data.userId);
     } catch (err) {
       const message = err.response.data.message;
       //   console.log(message);

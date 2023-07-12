@@ -6,6 +6,7 @@
   letter-spacing: 2px;
   text-transform: lowercase;
   min-height: 200px;
+  background-color: rgb(162, 125, 178);
 }
 
 .text-area:focus {

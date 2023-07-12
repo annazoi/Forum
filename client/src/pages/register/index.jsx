@@ -9,9 +9,11 @@ import Button from "../../components/ui/Button";
 import { registerSchema } from "../../validation-schemas/auth";
 import { useAuthHook } from "../../hooks/authHook";
 import { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { registerUser, loading, error, data } = useAuthHook();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,11 +24,11 @@ const Register = () => {
 
   useEffect(() => {
     if (!data) return;
-    if (data.token) return alert("Successfully Creating");
+    if (data.token) return navigate("/login");
   }, [data]);
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data.name);
     registerUser(data);
   };
 

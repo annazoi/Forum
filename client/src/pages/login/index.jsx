@@ -7,11 +7,14 @@ import { loginSchema } from "../../validation-schemas/auth";
 import { useAuthHook } from "../../hooks/authHook";
 import { useEffect } from "react";
 import { authStore } from "../../store/auth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { logIn } = authStore((store) => store);
 
   const { loginUser, loading, error, data } = useAuthHook();
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -26,8 +29,9 @@ const Login = () => {
     if (data.token) {
       logIn({
         token: data.token,
+        userId: data.userId,
       });
-      alert("Successfully Connection");
+      navigate("/home");
     }
     console.log(data);
   }, [data]);
