@@ -13,7 +13,6 @@ const Post = () => {
   const { getPost, deletePost } = usePostHook();
   const [post, setPost] = useState({});
   const navigate = useNavigate();
-  // const [removePost, setRemovePost] = useState({});
   const params = useParams();
 
   useEffect(() => {
@@ -29,6 +28,19 @@ const Post = () => {
     specificPost();
   }, []);
 
+  const removePost = async () => {
+    if (isLoggedIn && userId === post.creatorId) {
+      await deletePost(post._id).then((response) => {
+        console.log("deleted");
+      });
+      navigate("/home");
+    } else {
+      alert("delete only your post");
+    }
+
+    // setRemovePost(response.data);
+  };
+
   return (
     <>
       <div className="specificPost-container">
@@ -38,20 +50,7 @@ const Post = () => {
         <div className="description-container">
           <p>{post.description}</p>
         </div>
-        <Button
-          label="delete"
-          onClick={async () => {
-            if (isLoggedIn && userId === post.creatorId) {
-              await deletePost(post._id).then((response) => {
-                console.log("deleted");
-              });
-              navigate("/home");
-            } else {
-              alert("delete only your post");
-            }
-
-            // setRemovePost(response.data);
-          }}></Button>
+        <Button label="delete" onClick={removePost}></Button>
       </div>
     </>
   );

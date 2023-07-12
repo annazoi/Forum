@@ -9,7 +9,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Textarea from "../../components/ui/Textarea";
 import { authStore } from "../../store/auth";
 import Post from "../../components/Post";
-import Linkpost from "../../components/Linkpost";
 
 const Home = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
@@ -65,7 +64,7 @@ const Home = () => {
       </form>
 
       {/* <Post posts={posts} /> */}
-      <Linkpost posts={posts} to={"/posts"}></Linkpost>
+      <Post posts={posts} to={"/posts"}></Post>
     </div>
   );
 };
