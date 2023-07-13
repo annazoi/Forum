@@ -11,12 +11,19 @@ export const usePostHook = () => {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  const createPost = async (data, id) => {
-    setLoading(true);
-    const response = await Axios.post(`${API_URL}posts`, data, config);
-    // setUserId(userId);
-    setLoading(false);
-    console.log(response.data);
+  const createPost = async (data) => {
+    try {
+      setLoading(true);
+      const response = await Axios.post(`${API_URL}posts`, data, config);
+      // setUserId(userId);
+      setLoading(false);
+      console.log(response.data);
+    } catch (err) {
+      return {
+        message: "Could not create post",
+        data: null,
+      };
+    }
   };
 
   const getPosts = async () => {
@@ -46,7 +53,7 @@ export const usePostHook = () => {
       };
     } catch (error) {
       return {
-        message: "error with get specific post",
+        message: "Could not get specific post",
         data: null,
       };
     }
@@ -61,7 +68,7 @@ export const usePostHook = () => {
       };
     } catch (error) {
       return {
-        message: "error with delete a post",
+        message: "Could not delete post",
         data: null,
       };
     }

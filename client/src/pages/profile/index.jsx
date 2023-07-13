@@ -1,6 +1,7 @@
 import "./style.css";
 import { useEffect, useState } from "react";
 import { useProfileHook } from "../../hooks/profileHook";
+import Button from "../../components/ui/Button";
 
 const Profile = () => {
   const [user, setUser] = useState({});
@@ -32,6 +33,7 @@ const Profile = () => {
           <h1>surname: {user.surname}</h1>
           <h1>Email: {user.email}</h1>
         </div>
+        {/* <Button label="Settings"></Button> */}
       </div>
     </>
   );

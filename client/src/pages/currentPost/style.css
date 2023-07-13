@@ -11,3 +11,18 @@
 
 .description-container {
 }
+
+.comment-container {
+  display: grid;
+  margin: 0 auto;
+  /* padding: 0; */
+}
+
+.comment-content {
+  /* margin: 50px; */
+  border-radius: 10px;
+  margin: 0 auto;
+  min-width: 650px;
+  max-width: 600px;
+  min-height: 3%;
+}

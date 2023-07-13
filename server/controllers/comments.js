@@ -1,47 +1,66 @@
-const Comment = require("../model/Comment");
+const Post = require("../model/Post");
 
 const createComment = async (req, res) => {
-  const comment = new Comment({
-    description: req.body.description,
-    commentId: req.userId,
-  });
   try {
-    const publishedComment = await comment.save();
-    res.json(publishedComment);
+    const post = await Post.findById(req.params.id);
+
+    post.comments.push({
+      description: req.body.description,
+      creatorId: req.userId,
+    });
+
+    await post.save();
+    res.json(post);
   } catch (error) {
     res.json({ message: error });
   }
 };
 
-const getComments = async (req, res) => {
-  try {
-    const comments = await Comment.find();
-    res.json(comments);
-  } catch (err) {
-    res.json({ message: err });
-  }
-};
-
-const getComment = async (req, res) => {
-  try {
-    const comment = await Comment.findById(req.params.id);
-    res.json(comment);
-  } catch (err) {
-    res.json({ message: err });
-  }
-};
-
 const deleteComment = async (req, res) => {
   try {
-    const removedComment = await Comment.deleteOne({ _id: req.params.id });
+    const post = await Post.update(
+      { _id: req.params.id },
+      {
+        $pullAll: {
+          comments: { _id: req.params.commentId },
+        },
+      }
+    );
 
-    res.json(removedComment);
-  } catch (err) {
-    res.json({ message: err });
+    // console.log(req.params.commentId);
+    // post.comments.pull({
+    //   _id: req.params.commentId,
+    // });
+
+    // await post.save();
+    res.json(post);
+  } catch (error) {
+    res.json({ message: error });
   }
 };
 
+// const getComments = async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+//     post.comments.push();
+//     res.json(post);
+//   } catch (err) {
+//     res.json({ message: err });
+//   }
+// };
+
+// const getComment = async (req, res) => {
+//   try {
+//     const comment = await Comment.findById(req.params.id);
+//     res.json(comment);
+//   } catch (err) {
+//     res.json({ message: err });
+//   }
+// };
+
+// const updateComment = async (req, res) => {};
+
 exports.createComment = createComment;
-exports.getComments = getComments;
-exports.getComment = getComment;
 exports.deleteComment = deleteComment;
+// exports.getComments = getComments;
+// exports.getComment = getComment;

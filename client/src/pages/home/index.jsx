@@ -24,10 +24,16 @@ const Home = () => {
   });
 
   const getAllPosts = async () => {
-    const posts = await getPosts();
-    console.log("asd", posts);
-
-    setPosts(posts.data);
+    try {
+      const posts = await getPosts();
+      console.log("asd", posts);
+      setPosts(posts.data);
+    } catch (err) {
+      return {
+        message: "Could not get Posts",
+        data: null,
+      };
+    }
   };
 
   useEffect(() => {
@@ -35,11 +41,15 @@ const Home = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    if (isLoggedIn) {
-      await createPost(data);
-      getAllPosts();
-      // console.log(data);
-    } else return alert("connect first or error with id");
+    try {
+      if (isLoggedIn) {
+        await createPost(data);
+        getAllPosts();
+        // console.log(data);
+      } else return alert("connect first or error with id");
+    } catch (err) {
+      console.log("Could not create post");
+    }
   };
 
   return (

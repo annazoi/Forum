@@ -14,7 +14,7 @@ export const useProfileHook = () => {
       };
     } catch (err) {
       return {
-        message: "error with return profile",
+        message: "Could not get profile",
         data: null,
       };
     }

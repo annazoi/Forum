@@ -6,13 +6,17 @@ const Post = ({ post, onClick }) => {
   const { getPost, deletePost } = usePostHook();
 
   const removePost = async () => {
-    if (isLoggedIn && userId === post.creatorId) {
-      await deletePost(post._id).then((response) => {
-        console.log("deleted");
-      });
-      navigate("/home");
-    } else {
-      // alert("delete only your post");
+    try {
+      if (isLoggedIn && userId === post.creatorId) {
+        await deletePost(post._id).then((response) => {
+          console.log("deleted");
+        });
+        navigate("/home");
+      } else {
+        // alert("delete only your post");
+      }
+    } catch (err) {
+      console.log("Could not remove post");
     }
   };
 
