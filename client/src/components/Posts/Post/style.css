@@ -1,0 +1,13 @@
+.specificPost-container {
+  background-color: rgb(162, 125, 178);
+  margin: 50px;
+  opacity: 0.7;
+  border-radius: 10px;
+}
+
+.title-container {
+  text-align: center;
+}
+
+.description-container {
+}

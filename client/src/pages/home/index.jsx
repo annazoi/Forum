@@ -8,12 +8,12 @@ import { postSchema } from "../../validation-schemas/post";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Textarea from "../../components/ui/Textarea";
 import { authStore } from "../../store/auth";
-import Post from "../../components/Post";
+import Posts from "../../components/Posts";
 
 const Home = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
 
-  const { createPost, getPosts, loading, id } = usePostHook();
+  const { createPost, getPosts, loading } = usePostHook();
 
   const [posts, setPosts] = useState([]);
 
@@ -23,18 +23,21 @@ const Home = () => {
     resolver: yupResolver(postSchema),
   });
 
+  const getAllPosts = async () => {
+    const posts = await getPosts();
+    console.log("asd", posts);
+
+    setPosts(posts.data);
+  };
+
   useEffect(() => {
-    const getAllPosts = async () => {
-      const posts = await getPosts();
-      setPosts(posts.data);
-      // console.log(posts);
-    };
     getAllPosts();
   }, []);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (isLoggedIn) {
-      createPost(data);
+      await createPost(data);
+      getAllPosts();
       // console.log(data);
     } else return alert("connect first or error with id");
   };
@@ -64,7 +67,7 @@ const Home = () => {
       </form>
 
       {/* <Post posts={posts} /> */}
-      <Post posts={posts} to={"/posts"}></Post>
+      <Posts posts={posts} to={"/posts"}></Posts>
     </div>
   );
 };

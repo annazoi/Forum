@@ -7,7 +7,7 @@ import { loginSchema } from "../../validation-schemas/auth";
 import { useAuthHook } from "../../hooks/authHook";
 import { useEffect } from "react";
 import { authStore } from "../../store/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { logIn } = authStore((store) => store);

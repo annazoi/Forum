@@ -21,9 +21,3 @@
   border-style: double;
   cursor: pointer;
 }
-/* 
-@media (max-width: 700px) {
-  .link-items {
-    flex-direction: column;
-  }
-} */

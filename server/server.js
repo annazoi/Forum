@@ -7,6 +7,7 @@ const cors = require("cors");
 // Import the Routes
 const postRoutes = require("./routes/posts");
 const authRoutes = require("./routes/auth");
+const commentRoutes = require("./routes/comments");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -15,6 +16,7 @@ app.use(cors());
 // Import the Routes
 app.use("/posts", postRoutes);
 app.use("/auth", authRoutes);
+app.use("/comments", commentRoutes);
 // ROUTES
 // GET() -> fetch the data
 // POST() -> push the data

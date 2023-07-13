@@ -1,26 +1,21 @@
-import Axios from "axios";
 import "./style.css";
-import { API_URL } from "../../constants";
-import { useAuthHook } from "../../hooks/authHook";
 import { useEffect, useState } from "react";
-import { authStore } from "../../store/auth";
+import { useProfileHook } from "../../hooks/profileHook";
 
 const Profile = () => {
-  const { userId } = authStore((store) => store);
   const [user, setUser] = useState({});
+  const { getProfile } = useProfileHook();
 
   useEffect(() => {
-    const currentUser = async () => {
+    const getSpecificProfile = async () => {
       try {
-        const response = await Axios.get(`${API_URL}auth/${userId}`);
-        // console.log(response.data);
+        const response = await getProfile();
         setUser(response.data);
-        // console.log(userId);
       } catch (error) {
         console.log(error);
       }
     };
-    currentUser();
+    getSpecificProfile();
   }, []);
 
   // const onSubmit = (data) => {
@@ -32,6 +27,7 @@ const Profile = () => {
     <>
       <div>
         <div className="user-content">
+          <h1>Username: {user.username}</h1>
           <h1>name: {user.name}</h1>
           <h1>surname: {user.surname}</h1>
           <h1>Email: {user.email}</h1>

@@ -1,14 +1,12 @@
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { usePostHook } from "../../hooks/postHook";
-import { useState, useEffect } from "react";
-import { API_URL } from "../../constants";
-import Axios from "axios";
+import { useState, useEffect, isValidElement } from "react";
+import Post from "../../components/Posts/Post";
 import "./style.css";
 import Button from "../../components/ui/Button";
 import { authStore } from "../../store/auth";
-// import Post from "../../components/Post";
 
-const Post = () => {
+const CurrentPost = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
   const { getPost, deletePost } = usePostHook();
   const [post, setPost] = useState({});
@@ -25,6 +23,7 @@ const Post = () => {
         console.log(error);
       }
     };
+
     specificPost();
   }, []);
 
@@ -35,10 +34,13 @@ const Post = () => {
       });
       navigate("/home");
     } else {
-      alert("delete only your post");
+      // alert("delete only your post");
     }
+  };
 
-    // setRemovePost(response.data);
+  const createComment = async () => {
+    if (isLoggedIn) {
+    }
   };
 
   return (
@@ -50,10 +52,15 @@ const Post = () => {
         <div className="description-container">
           <p>{post.description}</p>
         </div>
-        <Button label="delete" onClick={removePost}></Button>
+
+        {isLoggedIn && userId === post.creatorId ? (
+          <Button label="delete" onClick={removePost}></Button>
+        ) : null}
+
+        <Button label="Comment"></Button>
       </div>
     </>
   );
 };
 
-export default Post;
+export default CurrentPost;

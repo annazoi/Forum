@@ -7,7 +7,7 @@ import Profile from "./pages/profile";
 import NavBar from "./components/NavBar";
 import Axios from "axios";
 import Home from "./pages/home";
-import Post from "./pages/post";
+import Post from "./pages/currentPost";
 
 function App() {
   return (

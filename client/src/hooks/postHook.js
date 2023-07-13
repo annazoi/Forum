@@ -72,7 +72,6 @@ export const usePostHook = () => {
     getPosts,
     getPost,
     deletePost,
-    // id,
     loading,
   };
 };

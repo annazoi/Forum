@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import "./style.css";
 import { authStore } from "../../store/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const NavBar = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
 
   const { logOut } = authStore((store) => store);
+
+  const [isSelected, setSelected] = useState("");
+
+  const { pathname } = useLocation();
 
   const navigate = useNavigate();
 
@@ -40,15 +45,24 @@ const NavBar = () => {
     {
       label: "Logout",
       onPress: logoutUser,
-      // color: "purple",
+      color: "black",
     },
   ];
 
   const onClick = (link) => {
+    setSelected(link.label);
     if (link.onPress) {
       link.onPress();
     }
   };
+
+  useEffect(() => {
+    links.map((link) => {
+      if (link.path === pathname) {
+        setSelected(link.label);
+      }
+    });
+  }, []);
 
   return (
     <div className="nav-bar-container">
@@ -61,7 +75,13 @@ const NavBar = () => {
             <Link
               key={index}
               className="link-content"
-              style={{ color: link.color ? link.color : "pink" }}
+              // style={{ color: link.color ? link.color : "black" }}
+              style={{
+                backgroundColor:
+                  isSelected === link.label
+                    ? "rgb(171, 68, 171) "
+                    : "rgb(207, 171, 223)  ",
+              }}
               to={link.path}
               onClick={() => onClick(link)}>
               {" "}
