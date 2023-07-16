@@ -1,3 +1,4 @@
+const { deserialize } = require("mongodb");
 const Post = require("../model/Post");
 
 const createComment = async (req, res) => {
@@ -15,6 +16,21 @@ const createComment = async (req, res) => {
     res.json({ message: error });
   }
 };
+
+// const getComments = async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+
+//     post.comments.push({
+//       description: res.json(description),
+//     });
+
+//     await post.save();
+//     res.json(post);
+//   } catch (err) {
+//     res.json({ message: err });
+//   }
+// };
 
 const deleteComment = async (req, res) => {
   try {

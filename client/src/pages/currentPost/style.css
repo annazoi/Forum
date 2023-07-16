@@ -1,7 +1,6 @@
 .specificPost-container {
-  background-color: rgb(162, 125, 178);
-  margin: 50px;
-  opacity: 0.7;
+  background-color: rgba(162, 125, 178, 0.798);
+  margin: 10px;
   border-radius: 10px;
 }
 
@@ -15,14 +14,19 @@
 .comment-container {
   display: grid;
   margin: 0 auto;
-  /* padding: 0; */
+  text-align: center;
 }
 
 .comment-content {
-  /* margin: 50px; */
+  background-color: rgb(100, 74, 114);
   border-radius: 10px;
-  margin: 0 auto;
-  min-width: 650px;
-  max-width: 600px;
   min-height: 3%;
+}
+
+.line {
+  overflow: auto;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  padding: 1px;
+  border-bottom: 3px solid rgba(206, 159, 214, 0.252);
 }

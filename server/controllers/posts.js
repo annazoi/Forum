@@ -5,6 +5,7 @@ const createPost = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     creatorId: req.userId,
+    author: createdUser._id,
   });
   try {
     const savedPost = await post.save();
@@ -26,7 +27,10 @@ const deletePost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate(
+      "creatorId comments.creatorId",
+      "-password"
+    );
     res.json(posts);
   } catch (err) {
     res.json({ message: err });
@@ -35,7 +39,11 @@ const getPosts = async (req, res) => {
 
 const getPost = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate(
+      "creatorId",
+      "-password"
+    );
+
     res.json(post);
   } catch (err) {
     res.json({ message: err });

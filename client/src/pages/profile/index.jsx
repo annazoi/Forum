@@ -12,6 +12,7 @@ const Profile = () => {
       try {
         const response = await getProfile();
         setUser(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }

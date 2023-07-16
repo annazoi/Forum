@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { usePostHook } from "../../hooks/postHook";
 import { useCommentHook } from "../../hooks/commentHook";
-
-import { useState, useEffect, isValidElement } from "react";
+import { useState, useEffect, isValidElement, useRef } from "react";
 import Post from "../../components/Posts/Post";
 import "./style.css";
 import Button from "../../components/ui/Button";
@@ -13,17 +12,34 @@ import Textarea from "../../components/ui/Textarea";
 import { commentSchema } from "../../validation-schemas/comment";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useAuthHook } from "../../hooks/authHook";
 
 const CurrentPost = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
+  const { getUser } = useAuthHook();
   const { getPost, deletePost } = usePostHook();
   const { createComment } = useCommentHook();
   const [post, setPost] = useState({});
+  const [comment, setComment] = useState({});
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
   const params = useParams();
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(commentSchema),
   });
+
+  // const displayUser = async () => {
+  //   try {
+  //     if (userId === post.creatorId) {
+  //       const response = await getUser(userId);
+  //       setUser(response.data);
+  //     }
+
+  //     // console.log(response.data);
+  //   } catch {
+  //     console.log("could not return data from user");
+  //   }
+  // };
 
   useEffect(() => {
     const specificPost = async () => {
@@ -31,12 +47,15 @@ const CurrentPost = () => {
         // const response = await Axios.get(`${API_URL}posts/${params.postId}`);
         const response = await getPost(params.postId);
         setPost(response.data);
+        // console.log(response.data.comments);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
     };
 
     specificPost();
+    // displayUser();
   }, []);
 
   const removePost = async () => {
@@ -53,7 +72,8 @@ const CurrentPost = () => {
   const onSubmit = async (data) => {
     try {
       if (isLoggedIn) {
-        createComment(data, post._id);
+        await createComment(data, post._id);
+        setComment(data);
         console.log(data);
       } else {
         alert("Connect first");
@@ -67,6 +87,7 @@ const CurrentPost = () => {
     <>
       <div className="specificPost-container">
         <div className="title-container">
+          {/* {post.author && <p>{post.author.username}</p>} */}
           <p>{post.title}</p>
         </div>
         <div className="description-container">
@@ -80,16 +101,28 @@ const CurrentPost = () => {
           <Button label="delete" onClick={removePost}></Button>
         ) : null} */}
       </div>
-      <form className="comment-container" onSubmit={handleSubmit(onSubmit)}>
-        <Textarea
-          className="comment-content "
-          name="description"
-          type="text"
-          placeholder="Create a comment for this post"
-          register={register}
-        />
-        <Button type="submit" label="Comment" onClick={onSubmit} />
-      </form>
+      <div className="specificPost-container">
+        {/* or: post.comments.?map... */}
+        {post.comments &&
+          post.comments.map((comment, index) => {
+            return (
+              <div key={index} className="line">
+                <p>{comment.description}</p>
+              </div>
+            );
+          })}
+
+        <form className="comment-container" onSubmit={handleSubmit(onSubmit)}>
+          <Textarea
+            className="comment-content "
+            name="description"
+            type="text"
+            placeholder="Create a comment for this post"
+            register={register}
+          />
+          <Button type="submit" label="Comment" onClick={onSubmit} />
+        </form>
+      </div>
     </>
   );
 };

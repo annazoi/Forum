@@ -33,9 +33,25 @@ export const useAuthHook = () => {
     }
   };
 
+  const getUser = async (userId) => {
+    try {
+      const response = await Axios.get(`${API_URL}auth/${userId}`);
+      return {
+        message: "ok",
+        data: response.data,
+      };
+    } catch (err) {
+      return {
+        message: "could not get user",
+        data: null,
+      };
+    }
+  };
+
   return {
     loginUser,
     registerUser,
+    getUser,
     loading,
     error,
     data,
