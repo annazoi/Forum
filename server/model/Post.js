@@ -13,7 +13,7 @@ const commentSchema = mongoose.Schema({
   },
 
   date: {
-    type: String,
+    type: Date,
     default: Date.now,
   },
 });
@@ -34,7 +34,7 @@ const postSchema = mongoose.Schema({
     ref: "User",
   },
   date: {
-    type: String,
+    type: Date,
     default: Date.now,
   },
 

@@ -16,8 +16,7 @@ const Home = () => {
   const { createPost, getPosts, loading } = usePostHook();
 
   const [posts, setPosts] = useState([]);
-
-  // const refresh = () => window.location.reload(true);
+  const [filterPost, setFilterPost] = useState([]);
 
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(postSchema),
@@ -53,32 +52,29 @@ const Home = () => {
   };
 
   return (
-    <div>
-      {/* <Button onClick={getAlert} /> */}
-      <form className="create-post-form" onSubmit={handleSubmit(onSubmit)}>
-        <h1>Start a forum with a new post</h1>
-        <Input
-          name="title"
-          type="text"
-          placeholder="Title"
-          register={register}
-        />
-        <Textarea
-          name="description"
-          type="text"
-          placeholder="Share a Thought"
-          register={register}
-        />
-        <Button
-          type="submit"
-          label={loading ? "Loading" : "Post"}
-          // onClick={refresh}
-        />
-      </form>
-
-      {/* <Post posts={posts} /> */}
-      <Posts posts={posts} to={"/posts"}></Posts>
-    </div>
+    <>
+      <div className="forum-container">
+        <form className="create-post-form" onSubmit={handleSubmit(onSubmit)}>
+          <h1>Start a forum with a new post</h1>
+          <Input
+            name="title"
+            type="text"
+            placeholder="Title"
+            register={register}
+          />
+          <Textarea
+            name="description"
+            type="text"
+            placeholder="Share a Thought"
+            register={register}
+          />
+          <Button type="submit" label={loading ? "Loading" : "Post"} />
+        </form>
+      </div>
+      <h1>Posts</h1>
+      {/* <Input onClic></Input>   */}
+      <Posts posts={posts} to={"/posts"} />
+    </>
   );
 };
 

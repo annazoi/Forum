@@ -1,24 +1,11 @@
 import { useState } from "react";
 import "./style.css";
+import { authStore } from "../../../store/auth";
+import { Link } from "react-router-dom";
+import Button from "../../ui/Button";
 
 const Post = ({ post, onClick }) => {
   const { isLoggedIn, userId } = authStore((store) => store);
-  const { getPost, deletePost } = usePostHook();
-
-  const removePost = async () => {
-    try {
-      if (isLoggedIn && userId === post.creatorId) {
-        await deletePost(post._id).then((response) => {
-          console.log("deleted");
-        });
-        navigate("/home");
-      } else {
-        // alert("delete only your post");
-      }
-    } catch (err) {
-      console.log("Could not remove post");
-    }
-  };
 
   return (
     <div className="specificPost-container">
@@ -28,10 +15,16 @@ const Post = ({ post, onClick }) => {
       <div className="description-container">
         <p>{post.description}</p>
       </div>
+      <div className="post-info">
+        {post.creatorId && (
+          <Link to={`profile/${userId}`}>{post.creatorId.username}</Link>
+        )}
+        {post.date && <p>{post.date}</p>}
+      </div>
 
-      {isLoggedIn && userId === post.creatorId ? (
+      {post.creatorId && userId === post.creatorId._id && (
         <Button label="delete" onClick={onClick}></Button>
-      ) : null}
+      )}
     </div>
   );
 };

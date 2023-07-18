@@ -8,6 +8,10 @@
   background-color: rgb(162, 125, 178);
 }
 
+.login-form a {
+  text-decoration: none;
+  color: #800df4;
+}
 ::placeholder {
   color: rgb(251, 251, 251);
   opacity: 0.5;

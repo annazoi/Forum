@@ -2,7 +2,7 @@ import "./style.css";
 
 const Textarea = ({
   name,
-  type,
+  type = "",
   placeholder,
   value,
   props,
@@ -13,7 +13,7 @@ const Textarea = ({
   return (
     <textarea
       className={`text-area ${className}`}
-      type={type}
+      type={`text ${type}`}
       placeholder={placeholder}
       value={value}
       {...props}

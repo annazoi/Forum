@@ -1,3 +1,12 @@
+.forum-container {
+  display: flex;
+  /* width: fit-content; */
+  flex-wrap: wrap;
+  /* padding: 10px; */
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
 .create-post-form {
   display: flex;
   flex-direction: column;
@@ -6,9 +15,8 @@
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  /* border-radius: 12px;
-    opacity: 0.7;
-    background-color: rgb(162, 125, 178); */
+  border-radius: 12px;
+  background-color: rgba(162, 125, 178, 0.547);
 }
 
 h1 {

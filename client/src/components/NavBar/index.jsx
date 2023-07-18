@@ -3,6 +3,12 @@ import "./style.css";
 import { authStore } from "../../store/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Input from "../ui/Input";
+import { useForm } from "react-hook-form";
+import Button from "../ui/Button";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Search from "../Search";
+import { usePostHook } from "../../hooks/postHook";
 
 const NavBar = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
@@ -13,11 +19,20 @@ const NavBar = () => {
 
   const { pathname } = useLocation();
 
+  const { getPosts } = usePostHook();
+  const [posts, setPosts] = useState({});
+
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm({});
 
   const logoutUser = () => {
     logOut();
     navigate("/login");
+  };
+
+  const returnPosts = async () => {
+    const response = await getPosts();
+    setPosts(response.data);
   };
 
   const links = [
@@ -26,11 +41,11 @@ const NavBar = () => {
       label: "Login",
       color: "purple",
     },
-    {
-      path: "/register",
-      label: "Register",
-      color: "purple",
-    },
+    // {
+    //   path: "/register",
+    //   label: "Register",
+    //   color: "purple",
+    // },
     {
       path: "/home",
       label: "Home",
@@ -67,7 +82,6 @@ const NavBar = () => {
   return (
     <div className="nav-bar-container">
       <p>LoggedIN: {`${isLoggedIn}`}</p>
-      <p>UserId: {`${userId}`}</p>
 
       <div className="link-items">
         {links.map((link, index) => {
@@ -90,6 +104,9 @@ const NavBar = () => {
           );
         })}
       </div>
+      {/* <div className="search-container">
+        <Search details={posts}></Search>
+      </div> */}
     </div>
   );
 };

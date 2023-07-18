@@ -1,0 +1,11 @@
+.line {
+  overflow: auto;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  padding: 1px;
+  border-bottom: 3px solid rgba(206, 159, 214, 0.252);
+}
+
+.line a {
+  text-decoration: none;
+}

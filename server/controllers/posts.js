@@ -5,7 +5,6 @@ const createPost = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     creatorId: req.userId,
-    author: createdUser._id,
   });
   try {
     const savedPost = await post.save();
@@ -40,7 +39,7 @@ const getPosts = async (req, res) => {
 const getPost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id).populate(
-      "creatorId",
+      "creatorId comments.creatorId",
       "-password"
     );
 

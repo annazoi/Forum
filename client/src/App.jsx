@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Profile from "./pages/profile";
 import NavBar from "./components/NavBar";
-import Axios from "axios";
 import Home from "./pages/home";
-import Post from "./pages/currentPost";
+import Post from "./pages/post";
 
 function App() {
   return (
@@ -18,7 +16,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/post/:postId" element={<Post />} />
         </Routes>
       </BrowserRouter>

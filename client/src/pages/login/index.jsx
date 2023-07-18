@@ -7,10 +7,10 @@ import { loginSchema } from "../../validation-schemas/auth";
 import { useAuthHook } from "../../hooks/authHook";
 import { useEffect } from "react";
 import { authStore } from "../../store/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { logIn } = authStore((store) => store);
+  const { logIn, isLoggedIn } = authStore((store) => store);
 
   const { loginUser, loading, error, data } = useAuthHook();
 
@@ -65,6 +65,11 @@ const Login = () => {
           <Button type="submit" label={loading ? "Loading" : "Sign In"} />
         </div>
       </form>
+      {!isLoggedIn && (
+        <p>
+          You don't have account; <Link to="/register">Register</Link>
+        </p>
+      )}
     </div>
   );
 };

@@ -8,6 +8,7 @@ const Input = ({
   register,
   error,
   className = "",
+  onClick,
 }) => {
   return (
     <>
@@ -18,6 +19,7 @@ const Input = ({
         value={value}
         {...props}
         {...register(name)}
+        onClick={onClick}
       />
       {error && <p className="error-container">{error}</p>}
     </>
