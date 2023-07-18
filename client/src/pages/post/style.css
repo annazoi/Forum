@@ -1,0 +1,17 @@
+.specific-post-container {
+  background-color: rgba(162, 125, 178, 0.798);
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.forum-comment-container {
+  display: grid;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.forum-comment-content {
+  background-color: rgb(100, 74, 114);
+  border-radius: 10px;
+  min-height: 3%;
+}
