@@ -43,7 +43,7 @@ const Login = () => {
 
   return (
     <div className="login-form">
-      <h1>Sign In</h1>
+      <h1 style={{ paddingTop: "20px" }}>Sign In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs-container">
           <Input
@@ -66,7 +66,7 @@ const Login = () => {
         </div>
       </form>
       {!isLoggedIn && (
-        <p>
+        <p style={{ paddingBottom: "20px" }}>
           You don't have account; <Link to="/register">Register</Link>
         </p>
       )}

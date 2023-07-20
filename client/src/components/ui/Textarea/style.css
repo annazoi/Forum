@@ -1,15 +1,14 @@
 .text-area {
   text-align: center;
   font-size: 17px;
-  color: #fff;
+  color: rgba(238, 238, 238, 0.835);
   border-radius: 7px;
   letter-spacing: 2px;
-  text-transform: lowercase;
-  min-height: 200px;
-  background-color: rgb(162, 125, 178);
-}
-
-.text-area:focus {
-  outline: auto;
-  border-bottom-color: lightblue;
+  min-height: 100px;
+  background-color: rgba(193, 196, 194, 0.5);
+  border: 2px solid rgba(193, 196, 194, 0.5);
+  resize: none;
+  box-sizing: border-box;
+  margin: 50px;
+  margin-top: 20px;
 }

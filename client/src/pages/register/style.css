@@ -5,5 +5,6 @@
   max-width: 400px;
   border-radius: 12px;
   opacity: 0.7;
-  background-color: rgb(162, 125, 178);
+  background-color: rgba(134, 112, 144, 0.5);
+  margin-top: 100px;
 }

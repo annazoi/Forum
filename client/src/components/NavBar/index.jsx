@@ -11,9 +11,7 @@ import Search from "../Search";
 import { usePostHook } from "../../hooks/postHook";
 
 const NavBar = () => {
-  const { isLoggedIn, userId } = authStore((store) => store);
-
-  const { logOut } = authStore((store) => store);
+  const { logOut, logIn, isLoggedIn, userId } = authStore((store) => store);
 
   const [isSelected, setSelected] = useState("");
 
@@ -30,6 +28,10 @@ const NavBar = () => {
     navigate("/login");
   };
 
+  // const logInUser = () => {
+  //   logIn();
+  // };
+
   const returnPosts = async () => {
     const response = await getPosts();
     setPosts(response.data);
@@ -39,7 +41,8 @@ const NavBar = () => {
     {
       path: "/login",
       label: "Login",
-      color: "purple",
+      color: "white",
+      // onPress:
     },
     // {
     //   path: "/register",
@@ -49,18 +52,18 @@ const NavBar = () => {
     {
       path: "/home",
       label: "Home",
-      color: "purple",
+      color: "white",
     },
     {
       path: "/profile",
       label: "Profile",
-      color: "purple",
+      color: "white",
       // onPress: users,
     },
     {
       label: "Logout",
       onPress: logoutUser,
-      color: "black",
+      color: "white",
     },
   ];
 
@@ -81,8 +84,6 @@ const NavBar = () => {
 
   return (
     <div className="nav-bar-container">
-      <p>LoggedIN: {`${isLoggedIn}`}</p>
-
       <div className="link-items">
         {links.map((link, index) => {
           return (
@@ -93,8 +94,8 @@ const NavBar = () => {
               style={{
                 backgroundColor:
                   isSelected === link.label
-                    ? "rgb(171, 68, 171) "
-                    : "rgb(207, 171, 223)  ",
+                    ? "rgb(93, 112, 108) "
+                    : " rgba(134, 112, 144, 0.5)",
               }}
               to={link.path}
               onClick={() => onClick(link)}>
@@ -104,9 +105,6 @@ const NavBar = () => {
           );
         })}
       </div>
-      {/* <div className="search-container">
-        <Search details={posts}></Search>
-      </div> */}
     </div>
   );
 };

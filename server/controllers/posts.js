@@ -1,14 +1,34 @@
 const Post = require("../model/Post");
+const cloudinary = require("../utils/cloudinary");
 
 const createPost = async (req, res) => {
   const post = new Post({
     title: req.body.title,
     description: req.body.description,
     creatorId: req.userId,
+    image: req.body.image,
   });
   try {
-    const savedPost = await post.save();
-    res.json(savedPost);
+    const result = await cloudinary.uploader.upload(image, {
+      folder: "posts",
+      // width: 300,
+      // crop: "scale",
+    });
+
+    const post = await Post.create({
+      title,
+      description,
+      image: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
+    });
+    res.status(201).json({
+      success: true,
+      post,
+    });
+    // const savedPost = await post.save();
+    // res.json(savedPost);
   } catch (error) {
     res.json({ message: error });
   }

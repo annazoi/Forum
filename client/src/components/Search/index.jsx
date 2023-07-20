@@ -1,31 +1,17 @@
 import { useState } from "react";
 import "./style.css";
-import SearchList from "./SearchList";
+import Input from "../../components/ui/Input";
 
-const Search = ({ posts }) => {
-  const [searchField, setSearchField] = useState("");
-
-  const filteredPosts = posts.filter((post) => {
-    return (
-      post.title.toLowerCase().includes(searchField.toLowerCase()) ||
-      post.description.toLowerCase().includes(searchField.toLowerCase())
-    );
-  });
-  const handleChange = (e) => {
-    setSearchField(e.target.value);
-  };
-
+const Search = ({ onChange }) => {
   return (
-    <section>
-      <div>
-        <input
-          type="search"
-          placeholder="Search for posts"
-          onChange={handleChange}
-        />
-      </div>
-      <SearchList filteredPosts={filteredPosts} />
-    </section>
+    <div className="search-container">
+      <input
+        className="search-content"
+        type="text"
+        placeholder="Search..."
+        onChange={onChange}
+      />
+    </div>
   );
 };
 

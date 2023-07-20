@@ -1,17 +1,26 @@
-.specific-post-container {
-  background-color: rgba(162, 125, 178, 0.798);
-  margin: 10px;
-  border-radius: 10px;
-}
-
-.forum-comment-container {
-  display: grid;
+.comments-container {
+  background-color: rgba(134, 112, 144, 0.3);
+  /* background-color: var(--primary-color); */
   margin: 0 auto;
-  text-align: center;
+  margin-top: 30px;
+  border-radius: 10px;
+  max-width: 640px;
+  padding: 30px;
+  overflow-wrap: break-word;
 }
 
-.forum-comment-content {
-  background-color: rgb(100, 74, 114);
-  border-radius: 10px;
-  min-height: 3%;
+.comments-container a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.input-comment {
+  display: grid;
+  /* gap: 5px; */
+  width: 100%;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+  text-align: center;
+  padding: 0 auto;
 }

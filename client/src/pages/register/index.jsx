@@ -34,7 +34,7 @@ const Register = () => {
 
   return (
     <div className="register-form">
-      <h1>Register</h1>
+      <h1 style={{ paddingTop: "20px" }}>Register</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs-container">

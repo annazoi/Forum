@@ -1,17 +1,24 @@
 .specificPost-container {
-  background-color: rgba(162, 125, 178, 0.798);
-  margin: 10px;
+  background-color: rgba(134, 112, 144, 0.3);
+  margin: 0 auto;
   border-radius: 10px;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
+  margin-top: 30px;
 }
 
-.post-info {
-  font-size: 12px;
+.specificPost-content {
+  margin: 30px;
+  line-height: 40px;
 }
 
-.title-container {
-  text-align: left;
+.specificPost-info {
+  margin-top: 40px;
 }
 
-.description-container {
-  font-size: 30px;
+.specificPost-info a {
+  text-decoration: none;
+  color: var(--link-color);
 }

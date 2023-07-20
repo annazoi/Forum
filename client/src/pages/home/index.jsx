@@ -9,6 +9,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Textarea from "../../components/ui/Textarea";
 import { authStore } from "../../store/auth";
 import Posts from "../../components/Posts";
+import Search from "../../components/Search";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
@@ -16,7 +18,7 @@ const Home = () => {
   const { createPost, getPosts, loading } = usePostHook();
 
   const [posts, setPosts] = useState([]);
-  const [filterPost, setFilterPost] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(postSchema),
@@ -27,6 +29,7 @@ const Home = () => {
       const posts = await getPosts();
       console.log("asd", posts);
       setPosts(posts.data);
+      setFilteredPosts(posts.data);
     } catch (err) {
       return {
         message: "Could not get Posts",
@@ -35,14 +38,40 @@ const Home = () => {
     }
   };
 
+  const handleFilterChange = (event) => {
+    setFilteredPosts(
+      posts.filter((post) => {
+        return post.title.includes(event.target.value);
+      })
+    );
+  };
+
+  const handleImage = (event) => {
+    const file = event.target.files[0];
+    setFileToBase(file);
+    console.log(file);
+  };
+
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+  };
+
   useEffect(() => {
     getAllPosts();
   }, []);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
     try {
       if (isLoggedIn) {
         await createPost(data);
+        if (data.success === true) {
+          toast.success("post created successfully");
+        }
         getAllPosts();
         // console.log(data);
       } else return alert("connect first or error with id");
@@ -50,16 +79,16 @@ const Home = () => {
       console.log("Could not create post");
     }
   };
-
   return (
     <>
       <div className="forum-container">
         <form className="create-post-form" onSubmit={handleSubmit(onSubmit)}>
-          <h1>Start a forum with a new post</h1>
+          <h1 style={{ margin: "20px" }}>Start a forum with a new post</h1>
           <Input
             name="title"
             type="text"
             placeholder="Title"
+            className="title-post"
             register={register}
           />
           <Textarea
@@ -68,12 +97,17 @@ const Home = () => {
             placeholder="Share a Thought"
             register={register}
           />
-          <Button type="submit" label={loading ? "Loading" : "Post"} />
+          <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+
+          <Button
+            style={{ marginTop: "1px" }}
+            type="submit"
+            label={loading && posts.length > 0 ? "Loading" : "Post"}
+          />
         </form>
       </div>
-      <h1>Posts</h1>
-      {/* <Input onClic></Input>   */}
-      <Posts posts={posts} to={"/posts"} />
+      <Search onChange={handleFilterChange}></Search>
+      <Posts posts={filteredPosts} to={"/posts"} />
     </>
   );
 };

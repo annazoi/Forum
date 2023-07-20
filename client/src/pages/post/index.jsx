@@ -15,13 +15,11 @@ import Post from "../../components/Posts/Post";
 
 const post = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
-  const { getUser } = useAuthHook();
   const { getPost, deletePost } = usePostHook();
-  const { createComment } = useCommentHook();
+  const { createComment, loading } = useCommentHook();
   const [post, setPost] = useState({});
   const [comment, setComment] = useState({});
   const [comments, setComments] = useState([]);
-  const [user, setUser] = useState({});
   const navigate = useNavigate();
   const params = useParams();
   const { register, handleSubmit } = useForm({
@@ -35,7 +33,7 @@ const post = () => {
         const response = await getPost(params.postId);
         setPost(response.data);
         setComments(response.data.comments);
-        console.log(response.data);
+        // console.log(response.data);
         // console.log(response.data.creatorId);
       } catch (error) {
         console.log(error);
@@ -74,33 +72,32 @@ const post = () => {
     <>
       <Post post={post} onClick={removePost}></Post>
 
-      <div className="specific-post-container">
+      <div className="comments-container">
         {!isLoggedIn && (
           <>
-            <Link
-              to="/login"
-              style={{
-                fontSize: "20px",
-                textDecoration: "none",
-              }}>
-              <b>Login</b>
-            </Link>
-            <h1>Please connect first to comment</h1>
+            <h1>
+              Please connect first to comment{" "}
+              <Link to="/login">
+                <b>Login</b>
+              </Link>
+            </h1>
           </>
         )}
 
         <Comments comments={comments} />
 
-        <form
-          className="forum-comment-container"
-          onSubmit={handleSubmit(onSubmit)}>
+        <form className="input-comment" onSubmit={handleSubmit(onSubmit)}>
           <Textarea
-            className="forum-comment-content "
             name="description"
             placeholder="Create a comment for this post"
             register={register}
           />
-          <Button type="submit" label="Comment" onClick={onSubmit} />
+          <Button
+            style={{ marginTop: "1px" }}
+            type="submit"
+            label={loading ? "Loading " : "Comment"}
+            onClick={onSubmit}
+          />
         </form>
       </div>
     </>

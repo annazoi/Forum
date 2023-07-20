@@ -1,11 +1,16 @@
-.line {
-  overflow: auto;
-  overflow-y: auto;
-  overflow-wrap: break-word;
-  padding: 1px;
-  border-bottom: 3px solid rgba(206, 159, 214, 0.252);
+.comment-container {
+  margin: auto;
+  padding: 30px;
+  /* border: 1px solid #ccc; */
 }
 
-.line a {
+.comment-content {
+  overflow-wrap: break-word;
+  border-bottom: 3px solid rgba(101, 101, 101, 0.252);
+  line-height: 40px;
+}
+
+.comment-content a {
   text-decoration: none;
+  color: rgb(95, 116, 111);
 }

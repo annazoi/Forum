@@ -8,7 +8,7 @@ const Input = ({
   register,
   error,
   className = "",
-  onClick,
+  onChange,
 }) => {
   return (
     <>
@@ -17,9 +17,9 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         value={value}
+        onChange={onChange}
         {...props}
         {...register(name)}
-        onClick={onClick}
       />
       {error && <p className="error-container">{error}</p>}
     </>
