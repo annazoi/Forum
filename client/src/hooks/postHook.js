@@ -15,9 +15,12 @@ export const usePostHook = () => {
     try {
       setLoading(true);
       const response = await Axios.post(`${API_URL}posts`, data, config);
-      // setUserId(userId);
       setLoading(false);
       console.log(response.data);
+      return {
+        message: "OK",
+        data: response.data,
+      };
     } catch (err) {
       return {
         message: "Could not create post",

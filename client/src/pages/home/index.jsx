@@ -11,6 +11,7 @@ import { authStore } from "../../store/auth";
 import Posts from "../../components/Posts";
 import Search from "../../components/Search";
 import { toast } from "react-toastify";
+import ImagePicker from "../../components/ui/ImagePicker";
 
 const Home = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
@@ -20,14 +21,19 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
+    defaultValues: {
+      title: "",
+      description: "",
+      image: "",
+    },
     resolver: yupResolver(postSchema),
   });
 
   const getAllPosts = async () => {
     try {
       const posts = await getPosts();
-      console.log("asd", posts);
+      // console.log("allPosts", posts);
       setPosts(posts.data);
       setFilteredPosts(posts.data);
     } catch (err) {
@@ -49,32 +55,51 @@ const Home = () => {
   const handleImage = (event) => {
     const file = event.target.files[0];
     setFileToBase(file);
-    console.log(file);
   };
 
   const setFileToBase = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
+    makeBase64(file).then((base64) => {
+      setValue("image", base64);
+    });
+    // const reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onloadend = () => {
+    //   // setImage(reader.result);
+    //   console.log("asd", reader.result);
+    //   setValue("image", reader.result);
+    // };
   };
 
   useEffect(() => {
     getAllPosts();
   }, []);
 
-  const onSubmit = async (data, event) => {
-    event.preventDefault();
+  const makeBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const onSubmit = async (data) => {
+    console.log("data", data);
     try {
       if (isLoggedIn) {
-        await createPost(data);
-        if (data.success === true) {
+        const res = await createPost(data);
+        console.log("res", res);
+        if (res.message === "OK") {
           toast.success("post created successfully");
+          getAllPosts();
         }
-        getAllPosts();
-        // console.log(data);
-      } else return alert("connect first or error with id");
+      } else return alert("connect first");
     } catch (err) {
       console.log("Could not create post");
     }
@@ -97,8 +122,8 @@ const Home = () => {
             placeholder="Share a Thought"
             register={register}
           />
-          <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-
+          <ImagePicker onChange={handleImage} />
+          {/* <input name="image" type="file" onChange={handleImage} /> */}
           <Button
             style={{ marginTop: "1px" }}
             type="submit"

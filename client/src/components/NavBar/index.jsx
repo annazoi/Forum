@@ -3,11 +3,8 @@ import "./style.css";
 import { authStore } from "../../store/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Input from "../ui/Input";
 import { useForm } from "react-hook-form";
-import Button from "../ui/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Search from "../Search";
 import { usePostHook } from "../../hooks/postHook";
 
 const NavBar = () => {
@@ -20,12 +17,11 @@ const NavBar = () => {
   const { getPosts } = usePostHook();
   const [posts, setPosts] = useState({});
 
-  const navigate = useNavigate();
   const { register, handleSubmit } = useForm({});
 
   const logoutUser = () => {
     logOut();
-    navigate("/login");
+    window.location.href = "/login";
   };
 
   // const logInUser = () => {
@@ -42,6 +38,7 @@ const NavBar = () => {
       path: "/login",
       label: "Login",
       color: "white",
+      protected: false,
       // onPress:
     },
     // {
@@ -58,12 +55,14 @@ const NavBar = () => {
       path: "/profile",
       label: "Profile",
       color: "white",
+      protected: true,
       // onPress: users,
     },
     {
       label: "Logout",
       onPress: logoutUser,
       color: "white",
+      protected: true,
     },
   ];
 
@@ -86,6 +85,9 @@ const NavBar = () => {
     <div className="nav-bar-container">
       <div className="link-items">
         {links.map((link, index) => {
+          if (link.protected && !isLoggedIn) {
+            return null;
+          }
           return (
             <Link
               key={index}

@@ -1,6 +1,7 @@
 #root {
   --primary-color: rgba(134, 112, 144, 0.5);
   --link-color: rgb(43, 80, 70);
+  --imagePicker-color: black;
 }
 
 body {

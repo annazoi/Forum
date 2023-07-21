@@ -2,15 +2,12 @@ import "./style.css";
 import { useEffect, useState } from "react";
 import { useProfileHook } from "../../hooks/profileHook";
 import Button from "../../components/ui/Button";
-import { useImageHook } from "../../hooks/imageHook";
 import { usePostHook } from "../../hooks/postHook";
 import { toast } from "react-toastify";
 
 const Profile = () => {
   const [user, setUser] = useState({});
   const { getProfile } = useProfileHook();
-  const { getImage } = useImageHook();
-  const [image, setImage] = useState("");
 
   useEffect(() => {
     const getSpecificProfile = async () => {
@@ -26,19 +23,19 @@ const Profile = () => {
     getSpecificProfile();
   }, []);
 
-  const handleImage = (event) => {
-    const file = event.target.files[0];
-    setFileToBase(file);
-    console.log(file);
-  };
+  // const handleImage = (event) => {
+  //   const file = event.target.files[0];
+  //   setFileToBase(file);
+  //   console.log(file);
+  // };
 
-  const setFileToBase = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
-  };
+  // const setFileToBase = (file) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setImage(reader.result);
+  //   };
+  // };
 
   return (
     <>

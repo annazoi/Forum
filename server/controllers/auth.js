@@ -1,11 +1,12 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../model/User");
-const Post = require("../model/Post");
+const cloudinary = require("../utils/cloudinary");
 
 const register = async (req, res, next) => {
-  const { name, surname, username, email, password, confirmPassword } =
+  const { name, surname, username, email, password, confirmPassword, image } =
     req.body;
+  console.log(req.body);
 
   let existingUser;
   try {
@@ -40,16 +41,32 @@ const register = async (req, res, next) => {
     return res.status(400).send({ message: "Could not create user" });
   }
 
-  const createdUser = new User({
-    name,
-    surname,
-    username,
-    email,
-    password: hashedPassword,
-  });
+  // const createdUser = new User({
+  //   name,
+  //   surname,
+  //   username,
+  //   email,
+  //   password: hashedPassword,
+  // });
 
   try {
-    await createdUser.save();
+    const result = await cloudinary.uploader.upload(image, {
+      folder: "users",
+    });
+    console.log(result.url);
+    const createdUser = await User.create({
+      name,
+      surname,
+      username,
+      email,
+      password: hashedPassword,
+      image: result.url,
+    });
+    res.status(201).json({
+      success: true,
+      createdUser,
+    });
+    // await createdUser.save();
   } catch (err) {
     console.log(err);
     return res.status(400).send({ message: "Could not create user" });
