@@ -1,55 +1,33 @@
 import "./style.css";
 import { useEffect, useState } from "react";
-import { useProfileHook } from "../../hooks/profileHook";
-import Button from "../../components/ui/Button";
-import { usePostHook } from "../../hooks/postHook";
-import { toast } from "react-toastify";
-
-const Profile = () => {
+import { useParams } from "react-router-dom";
+import { useAuthHook } from "../../hooks/authHook";
+import Profile from "../../components/Profile";
+const profile = () => {
   const [user, setUser] = useState({});
-  const { getProfile } = useProfileHook();
+  const params = useParams();
+  const { getUser } = useAuthHook();
 
   useEffect(() => {
-    const getSpecificProfile = async () => {
+    const getCreator = async () => {
       try {
-        const response = await getProfile();
-        setUser(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.log(error);
+        const res = await getUser(params.creatorId);
+        setUser(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.log("Could not get creator");
       }
     };
-
-    getSpecificProfile();
+    getCreator();
   }, []);
-
-  // const handleImage = (event) => {
-  //   const file = event.target.files[0];
-  //   setFileToBase(file);
-  //   console.log(file);
-  // };
-
-  // const setFileToBase = (file) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setImage(reader.result);
-  //   };
-  // };
 
   return (
     <>
       <div>
-        <div className="user-content">
-          <h1>Username: {user.username}</h1>
-          <h1>name: {user.name}</h1>
-          <h1>surname: {user.surname}</h1>
-          <h1>Email: {user.email}</h1>
-        </div>
-        <Button label="Settings"></Button>
+        <Profile user={user}></Profile>
       </div>
     </>
   );
 };
 
-export default Profile;
+export default profile;

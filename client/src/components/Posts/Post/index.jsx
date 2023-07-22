@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "./style.css";
 import { authStore } from "../../../store/auth";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Button from "../../ui/Button";
 import { formatDate } from "../../../utils/date";
 
 const Post = ({ post, onClick }) => {
   const { isLoggedIn, userId } = authStore((store) => store);
+  const params = useParams();
 
   return (
     <div className="specificPost-container">
@@ -23,7 +24,9 @@ const Post = ({ post, onClick }) => {
           {post.creatorId && (
             <h1>
               Story By:{" "}
-              <Link to={`profile/${userId}`}>{post.creatorId.username}</Link>
+              <Link to={`/profile/${post.creatorId._id}`}>
+                {post.creatorId.username}
+              </Link>
             </h1>
           )}
           {post.date && <p>{formatDate(post.date)}</p>}

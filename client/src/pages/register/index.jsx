@@ -10,6 +10,7 @@ import { registerSchema } from "../../validation-schemas/auth";
 import { useAuthHook } from "../../hooks/authHook";
 import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import ImagePicker from "../../components/ui/ImagePicker";
 
 const Register = () => {
   const { registerUser, loading, error, data } = useAuthHook();
@@ -17,19 +18,58 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    setValue,
+
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      name: "",
+      surname: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+      image: "",
+    },
     resolver: yupResolver(registerSchema),
   });
+
+  const handleImage = (event) => {
+    const file = event.target.files[0];
+    setFileToBase(file);
+  };
+
+  const setFileToBase = (file) => {
+    makeBase64(file).then((base64) => {
+      setValue("image", base64);
+    });
+  };
 
   useEffect(() => {
     if (!data) return;
     if (data.token) return navigate("/login");
   }, [data]);
 
+  const makeBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   const onSubmit = (data) => {
-    console.log(data.name);
-    registerUser(data);
+    try {
+      registerUser(data);
+    } catch (err) {
+      console.log("error", err);
+    }
   };
 
   return (
@@ -84,7 +124,11 @@ const Register = () => {
             register={register}
             error={errors.confirmPassword?.message}
           />
+          <div className="image-register">
+            <ImagePicker onChange={handleImage} />
+          </div>
           {error && <p>{error}</p>}
+
           <Button type="submit" label={loading ? "Loanding" : "Sign Up"} />
         </div>
       </form>

@@ -61,13 +61,6 @@ const Home = () => {
     makeBase64(file).then((base64) => {
       setValue("image", base64);
     });
-    // const reader = new FileReader();
-    // reader.readAsDataURL(file);
-    // reader.onloadend = () => {
-    //   // setImage(reader.result);
-    //   console.log("asd", reader.result);
-    //   setValue("image", reader.result);
-    // };
   };
 
   useEffect(() => {

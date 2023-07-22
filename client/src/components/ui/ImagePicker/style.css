@@ -6,7 +6,6 @@
   border: 2px solid var(--imagePicker-color);
   display: flex;
   margin: 0 auto;
-  margin-bottom: 20px;
   justify-content: center;
   align-items: center;
   overflow: hidden;

@@ -1,10 +1,12 @@
 import "./style.css";
 
-const Profile = ({ post }) => {
+const Profile = ({ user }) => {
   return (
     <div>
-      {" "}
-      <p>{post.creatorId.username}</p>
+      <h1>User Profile</h1>
+      <p>{user.name}</p>
+      <p>{user.surname}</p>
+      <p>{user.username}</p>
     </div>
   );
 };

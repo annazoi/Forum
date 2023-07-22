@@ -41,19 +41,21 @@ const register = async (req, res, next) => {
     return res.status(400).send({ message: "Could not create user" });
   }
 
-  // const createdUser = new User({
-  //   name,
-  //   surname,
-  //   username,
-  //   email,
-  //   password: hashedPassword,
-  // });
-
   try {
     const result = await cloudinary.uploader.upload(image, {
       folder: "users",
     });
     console.log(result.url);
+    // const createdUser = new User({
+    //   name,
+    //   surname,
+    //   username,
+    //   email,
+    //   password: hashedPassword,
+    //   image: result.url,
+    // });
+    // res.json({ success: true, createdUser });
+
     const createdUser = await User.create({
       name,
       surname,
@@ -66,6 +68,7 @@ const register = async (req, res, next) => {
       success: true,
       createdUser,
     });
+
     // await createdUser.save();
   } catch (err) {
     console.log(err);

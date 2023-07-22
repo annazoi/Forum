@@ -1,15 +1,14 @@
+import "./style.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState, useEffect, isValidElement, useRef } from "react";
 import { usePostHook } from "../../hooks/postHook";
 import { useCommentHook } from "../../hooks/commentHook";
-import { useState, useEffect, isValidElement, useRef } from "react";
-import "./style.css";
-import Button from "../../components/ui/Button";
 import { authStore } from "../../store/auth";
-import Textarea from "../../components/ui/Textarea";
 import { commentSchema } from "../../validation-schemas/comment";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { useAuthHook } from "../../hooks/authHook";
+import Button from "../../components/ui/Button";
+import Textarea from "../../components/ui/Textarea";
 import Comments from "../../components/Comment";
 import Post from "../../components/Posts/Post";
 
@@ -22,6 +21,7 @@ const post = () => {
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
   const params = useParams();
+
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(commentSchema),
   });
@@ -29,11 +29,9 @@ const post = () => {
   useEffect(() => {
     const specificPost = async () => {
       try {
-        // const response = await Axios.get(`${API_URL}posts/${params.postId}`);
         const response = await getPost(params.postId);
         setPost(response.data);
         setComments(response.data.comments);
-        // console.log(response.data);
         // console.log(response.data.creatorId);
       } catch (error) {
         console.log(error);
