@@ -8,12 +8,14 @@ import { API_URL } from "../../constants";
 import Button from "../../components/ui/Button";
 import { registerSchema } from "../../validation-schemas/auth";
 import { useAuthHook } from "../../hooks/authHook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import ImagePicker from "../../components/ui/ImagePicker";
+import { commentSchema } from "../../validation-schemas/comment";
 
 const Register = () => {
   const { registerUser, loading, error, data } = useAuthHook();
+  const [image, setImage] = useState();
   const navigate = useNavigate();
   const {
     register,
@@ -36,11 +38,13 @@ const Register = () => {
   const handleImage = (event) => {
     const file = event.target.files[0];
     setFileToBase(file);
+    setImage(file);
   };
 
   const setFileToBase = (file) => {
     makeBase64(file).then((base64) => {
       setValue("image", base64);
+      setImage(base64);
     });
   };
 
@@ -126,7 +130,11 @@ const Register = () => {
           />
           <div className="image-register">
             <ImagePicker onChange={handleImage} />
+            {image && (
+              <img className="handled-image-register" src={image} alt="" />
+            )}
           </div>
+
           {error && <p>{error}</p>}
 
           <Button type="submit" label={loading ? "Loanding" : "Sign Up"} />

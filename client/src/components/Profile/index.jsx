@@ -1,6 +1,6 @@
 import "./style.css";
 
-const Profile = ({ user, posts }) => {
+const Profile = ({ user }) => {
   return (
     <>
       <div className="profile-container">

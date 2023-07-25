@@ -44,7 +44,7 @@ const deletePost = async (req, res) => {
 
     res.json(removedPost);
   } catch (err) {
-    res.json({ message: err });
+    res.status(404).send({ message: "post not found" });
   }
 };
 
@@ -61,20 +61,25 @@ const getPosts = async (req, res) => {
     );
     res.json(posts);
   } catch (err) {
-    res.json({ message: err });
+    res.json({ message: "Not found posts yet" });
   }
 };
 
 const getPost = async (req, res) => {
+  // const post = [];
   try {
     const post = await Post.findById(req.params.id).populate(
       "creatorId comments.creatorId",
       "-password"
     );
 
-    res.status(201).json(post);
+    if (!post) {
+      return res.status(404).json({ message: "Post not Found", post: null });
+    }
+
+    res.status(201).json({ message: "ok", post: post });
   } catch (err) {
-    res.json({ message: err });
+    return res.status(404).json({ message: "Post not Found", post: null });
   }
 };
 exports.createPost = createPost;

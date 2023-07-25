@@ -14,7 +14,7 @@ import Post from "../../components/Posts/Post";
 
 const post = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
-  const { getPost, deletePost } = usePostHook();
+  const { getPost, deletePost, error } = usePostHook();
   const { createComment, loading } = useCommentHook();
   const [post, setPost] = useState({});
   const [image, setImage] = useState();
@@ -30,11 +30,12 @@ const post = () => {
   useEffect(() => {
     const specificPost = async () => {
       try {
-        const response = await getPost(params.postId);
-        setPost(response.data);
+        const post = await getPost(params.postId);
+        if (post) {
+          setPost(post);
+        }
         setComments(response.data.comments);
         setImage(response.data.creatorId.image);
-        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -72,7 +73,8 @@ const post = () => {
 
   return (
     <>
-      <Post post={post} onClick={removePost}></Post>
+      {error && <p>{error}</p>}
+      {post && <Post post={post} onClick={removePost}></Post>}
 
       <div className="comments-container">
         {!isLoggedIn && (

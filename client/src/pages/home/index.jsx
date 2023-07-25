@@ -28,6 +28,7 @@ const Home = () => {
 
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [image, setImage] = useState();
 
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -124,7 +125,7 @@ const Home = () => {
             register={register}
           />
           <ImagePicker onChange={handleImage} />
-          {/* <input name="image" type="file" onChange={handleImage} /> */}
+          <img src={image} alt="" />
           <Button
             style={{ marginTop: "1px" }}
             type="submit"

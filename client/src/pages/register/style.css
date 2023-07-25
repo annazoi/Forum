@@ -14,3 +14,21 @@
 .image-register {
   margin-top: 40px;
 }
+
+.handled-image-register {
+  border: 2px solid rgba(255, 255, 255);
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--imagePicker-color);
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px var(--imagePicker-color),
+    inset 0px 0px 10px var(--primary-color), 0px 0px 5px rgb(255, 255, 255);
+  animation: flicker 2s linear infinite;
+  margin-top: 40px;
+}

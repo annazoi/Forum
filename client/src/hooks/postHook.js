@@ -5,6 +5,7 @@ import { authStore } from "../store/auth";
 
 export const usePostHook = () => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { token } = authStore((store) => store);
 
   const config = {
@@ -54,15 +55,14 @@ export const usePostHook = () => {
   const getPost = async (postId) => {
     try {
       const response = await Axios.get(`${API_URL}posts/${postId}`);
-      return {
-        message: "ok",
-        data: response.data,
-      };
+      console.log(response);
+      if (response?.data?.post) {
+        return response.data.post;
+      } else {
+        setError(response.data.message);
+      }
     } catch (error) {
-      return {
-        message: "Could not get specific post",
-        data: null,
-      };
+      setError("Could not get Post");
     }
   };
 
@@ -87,5 +87,6 @@ export const usePostHook = () => {
     getPost,
     deletePost,
     loading,
+    error,
   };
 };

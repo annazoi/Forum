@@ -8,6 +8,7 @@ const ImagePicker = ({ name = "image", type = "file", onChange }) => {
         name={name}
         type={type}
         onChange={onChange}
+        accept="image/x-png,image/gif,image/jpeg, image/jpg, image/png"
       />
       <svg
         xmlns="http://www.w3.org/2000/svg"

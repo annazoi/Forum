@@ -24,12 +24,12 @@ const register = async (req, res, next) => {
       .send({ message: "Signing up failed, please try again later. 1" });
   }
 
-  if (password !== confirmPassword) {
-    return res.status(400).send({ message: "Passwords do not match" });
-  }
-
   if (existingUser) {
     return res.status(400).send({ message: "User already exits" });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).send({ message: "Passwords do not match" });
   }
 
   let hashedPassword;
@@ -44,22 +44,8 @@ const register = async (req, res, next) => {
   try {
     const result = await cloudinary.uploader.upload(image, {
       folder: "users",
-      // width: 300,
-      // height: 200,
-      // format: "jpg",
-      // crop: "scale",
     });
     console.log(result.url);
-    // const createdUser = new User({
-    //   name,
-    //   surname,
-    //   username,
-    //   email,
-    //   password: hashedPassword,
-    //   image: result.url,
-    // });
-    // res.json({ success: true, createdUser });
-
     const createdUser = await User.create({
       name,
       surname,
@@ -68,31 +54,19 @@ const register = async (req, res, next) => {
       password: hashedPassword,
       image: result.url,
     });
-    res.status(201).json({
-      success: true,
-      createdUser,
-    });
 
-    // await createdUser.save();
-  } catch (err) {
-    console.log(err);
-    return res.status(400).send({ message: "Could not create user" });
-  }
+    let token;
 
-  let token;
-  try {
     token = jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
+    res.status(201).json({ userId: createdUser.id, token: token });
   } catch (err) {
-    return res
-      .status(400)
-      .send({ message: "Signing up failed, please try again later" });
+    console.log(err);
+    return res.status(400).send({ message: "Could not create user" });
   }
-
-  res.status(201).json({ userId: createdUser.id, token: token });
 };
 
 const login = async (req, res, next) => {
