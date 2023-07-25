@@ -44,6 +44,10 @@ const register = async (req, res, next) => {
   try {
     const result = await cloudinary.uploader.upload(image, {
       folder: "users",
+      // width: 300,
+      // height: 200,
+      // format: "jpg",
+      // crop: "scale",
     });
     console.log(result.url);
     // const createdUser = new User({

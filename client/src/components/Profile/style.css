@@ -1,0 +1,37 @@
+.profile-container {
+  /* border: 1px solid #ccc; */
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 200px;
+  padding-left: 200px;
+  padding-bottom: 20px;
+  padding-right: 200px;
+  padding: auto;
+  gap: 20px;
+  text-align: center;
+  /* width: 100%; */
+  background-color: rgba(37, 51, 25, 0.2);
+}
+
+.photo-profile {
+  /* border: 1px solid #ccc; */
+  border-radius: 50%;
+  width: 160px;
+  /* border: 1px solid #ccc; */
+  /* margin: auto; */
+  padding: auto;
+  overflow-clip-margin: content-box;
+}
+
+.profile-content {
+  /* border: 1px solid #ccc; */
+  padding-top: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .photo-profile {
+    margin: auto;
+    padding: auto;
+    text-align: center;
+  }
+}

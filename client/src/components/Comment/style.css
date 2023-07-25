@@ -1,16 +1,35 @@
 .comment-container {
   margin: auto;
-  padding: 30px;
+  padding: 20px;
   /* border: 1px solid #ccc; */
 }
 
 .comment-content {
+  display: flex;
   overflow-wrap: break-word;
   border-bottom: 3px solid rgba(101, 101, 101, 0.252);
   line-height: 40px;
+  padding: 10px;
+  /* border: 1px solid #ccc; */
 }
 
 .comment-content a {
   text-decoration: none;
   color: rgb(95, 116, 111);
+}
+
+.photo-comment-container {
+  /* border: 1px solid #ccc; */
+  width: 60px;
+  text-align: center;
+  margin-right: 10px;
+}
+.photo-comment-content {
+  width: 60px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.comment-description {
+  /* border: 1px solid #ccc; */
 }

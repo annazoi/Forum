@@ -29,10 +29,14 @@ export const usePostHook = () => {
     }
   };
 
-  const getPosts = async () => {
+  const getPosts = async (creatorId = "") => {
     try {
       setLoading(true);
-      const response = await Axios.get(`${API_URL}posts`);
+      let url = `${API_URL}posts`;
+      if (creatorId) {
+        url = url + `?creatorId=${creatorId}`;
+      }
+      const response = await Axios.get(url);
       setLoading(false);
       return {
         message: "ok",

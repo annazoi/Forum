@@ -34,14 +34,24 @@ const createComment = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   try {
-    const post = await Post.update(
-      { _id: req.params.id },
-      {
-        $pullAll: {
-          comments: { _id: req.params.commentId },
-        },
-      }
-    );
+    const post = await Post.findById({ _id: req.params.id }).then(function (
+      post
+    ) {
+      post.comments.pull({ _id: req.params.commentId });
+      post.save();
+      console.log(req.params.id);
+    });
+    await post.save();
+    res.json(post);
+
+    // const post = await Post.update(
+    //   { _id: req.params.id },
+    //   {
+    //     $pullAll: {
+    //       comments: { _id: req.params.commentId },
+    //     },
+    //   }
+    // );
 
     // console.log(req.params.commentId);
     // post.comments.pull({
@@ -49,9 +59,9 @@ const deleteComment = async (req, res) => {
     // });
 
     // await post.save();
-    res.json(post);
+    // res.json(post);
   } catch (error) {
-    res.json({ message: error });
+    res.json({ message: "do not remove comment" });
   }
 };
 

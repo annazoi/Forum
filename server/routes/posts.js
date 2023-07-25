@@ -6,7 +6,7 @@ const commentController = require("../controllers/comments");
 
 // posts
 router.post("/", middleWare.protect, postController.createPost);
-router.delete("/:id", postController.deletePost);
+router.delete("/:id", middleWare.protect, postController.deletePost);
 router.get("/", postController.getPosts);
 router.get("/:id", postController.getPost);
 
@@ -16,7 +16,11 @@ router.post(
   middleWare.protect,
   commentController.createComment
 );
-router.delete("/:id/comments/:commentId", commentController.deleteComment);
+router.delete(
+  "/:id/comments/:commentId",
+  middleWare.protect,
+  commentController.deleteComment
+);
 
 // router.get("/:id/comments", commentController.getComments);
 // router.get("/:id/comments/:commentId", commentController.getComment);

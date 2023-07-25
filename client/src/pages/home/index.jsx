@@ -3,7 +3,7 @@ import "./style.css";
 import { useForm } from "react-hook-form";
 import Input from "../../components/ui/Input";
 import { usePostHook } from "../../hooks/postHook";
-import { useEffect, useState } from "react";
+import { useEffect, useState, CSSProperties } from "react";
 import { postSchema } from "../../validation-schemas/post";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Textarea from "../../components/ui/Textarea";
@@ -12,7 +12,15 @@ import Posts from "../../components/Posts";
 import Search from "../../components/Search";
 import { toast } from "react-toastify";
 import ImagePicker from "../../components/ui/ImagePicker";
+import BeatLoader from "react-spinners/BeatLoader";
 
+// const override = {
+//   CSSProperties: {
+//     display: "block",
+//     margin: "0 auto",
+//     borderColor: "red",
+//   },
+// };
 const Home = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
 
@@ -83,7 +91,7 @@ const Home = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log("data", data);
+    // console.log("data", data);
     try {
       if (isLoggedIn) {
         const res = await createPost(data);
@@ -125,7 +133,18 @@ const Home = () => {
         </form>
       </div>
       <Search onChange={handleFilterChange}></Search>
-      <Posts posts={filteredPosts} to={"/posts"} />
+      {loading ? (
+        <BeatLoader
+          color="rgb(43, 80, 70)"
+          loading={loading}
+          // cssOverride={override}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      ) : (
+        <Posts posts={filteredPosts} to={"/posts"} />
+      )}
     </>
   );
 };

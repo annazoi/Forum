@@ -12,8 +12,8 @@ const createPost = async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(image, {
       folder: "posts",
-      // width: 300,
-      // crop: "scale",
+      width: 300,
+      crop: "scale",
     });
     console.log(result.url);
     const post = await Post.create({
@@ -37,7 +37,10 @@ const createPost = async (req, res) => {
 
 const deletePost = async (req, res) => {
   try {
-    const removedPost = await Post.deleteOne({ _id: req.params.id });
+    const removedPost = await Post.deleteOne({
+      _id: req.params.id,
+      creatorId: req.userId,
+    });
 
     res.json(removedPost);
   } catch (err) {
@@ -47,7 +50,12 @@ const deletePost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate(
+    let filter = {};
+    const creatorId = req.query.creatorId;
+    if (creatorId) {
+      filter = { creatorId: creatorId };
+    }
+    const posts = await Post.find(filter).populate(
       "creatorId comments.creatorId",
       "-password"
     );
@@ -64,7 +72,7 @@ const getPost = async (req, res) => {
       "-password"
     );
 
-    res.json(post);
+    res.status(201).json(post);
   } catch (err) {
     res.json({ message: err });
   }

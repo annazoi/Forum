@@ -1,13 +1,15 @@
 import "./style.css";
 
-const Profile = ({ user }) => {
+const Profile = ({ user, posts }) => {
   return (
-    <div>
-      <h1>User Profile</h1>
-      <p>{user.name}</p>
-      <p>{user.surname}</p>
-      <p>{user.username}</p>
-    </div>
+    <>
+      <div className="profile-container">
+        <img className="photo-profile" src={user.image} alt="" />
+        <div className="profile-content">
+          <p>{user.username}</p>
+        </div>
+      </div>
+    </>
   );
 };
 

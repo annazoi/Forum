@@ -15,6 +15,7 @@ const Post = ({ post, onClick }) => {
         <h1>You Story</h1>
         <p style={{ fontSize: "30px" }}>
           <b>{post.title}</b>
+          {/* <img src={post.image} alt="" /> */}
         </p>
         <p style={{ fontSize: "20px", marginTop: "60px" }}>
           {post.description}

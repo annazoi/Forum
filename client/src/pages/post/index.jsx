@@ -17,6 +17,7 @@ const post = () => {
   const { getPost, deletePost } = usePostHook();
   const { createComment, loading } = useCommentHook();
   const [post, setPost] = useState({});
+  const [image, setImage] = useState();
   const [comment, setComment] = useState({});
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
@@ -32,7 +33,8 @@ const post = () => {
         const response = await getPost(params.postId);
         setPost(response.data);
         setComments(response.data.comments);
-        // console.log(response.data.creatorId);
+        setImage(response.data.creatorId.image);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -66,6 +68,8 @@ const post = () => {
     }
   };
 
+  const removedComment = () => {};
+
   return (
     <>
       <Post post={post} onClick={removePost}></Post>
@@ -81,7 +85,6 @@ const post = () => {
             </h1>
           </>
         )}
-
         <Comments comments={comments} />
 
         <form className="input-comment" onSubmit={handleSubmit(onSubmit)}>

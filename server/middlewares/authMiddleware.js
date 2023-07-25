@@ -19,7 +19,7 @@ const protect = (req, res, next) => {
   }
 
   if (!token) {
-    res.status(401).send({ message: "You are not authorized" });
+    return res.status(401).send({ message: "You are not authorized" });
   }
 };
 
