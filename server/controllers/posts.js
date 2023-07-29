@@ -59,14 +59,19 @@ const getPosts = async (req, res) => {
       "creatorId comments.creatorId",
       "-password"
     );
-    res.json(posts);
+
+    if (!posts || posts.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "Not found Posts yet", posts: null });
+    }
+    res.status(201).json({ message: "ok", posts: posts });
   } catch (err) {
-    res.json({ message: "Not found posts yet" });
+    res.status(404).json({ message: "Not found posts yet", posts: null });
   }
 };
 
 const getPost = async (req, res) => {
-  // const post = [];
   try {
     const post = await Post.findById(req.params.id).populate(
       "creatorId comments.creatorId",

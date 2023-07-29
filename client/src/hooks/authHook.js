@@ -16,7 +16,6 @@ export const useAuthHook = () => {
       console.log(response.data.userId);
     } catch (err) {
       const message = err.response.data.message;
-      //   console.log(message);
       setError(message);
     }
   };
@@ -36,15 +35,14 @@ export const useAuthHook = () => {
   const getUser = async (userId) => {
     try {
       const response = await Axios.get(`${API_URL}auth/${userId}`);
-      return {
-        message: "ok",
-        data: response.data,
-      };
+
+      if (response?.data?.user) {
+        return response.data.user;
+      } else {
+        setError(response.data.message);
+      }
     } catch (err) {
-      return {
-        message: "could not get user",
-        data: null,
-      };
+      setError("Could not get User");
     }
   };
 

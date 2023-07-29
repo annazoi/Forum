@@ -21,7 +21,7 @@ const Register = () => {
     register,
     handleSubmit,
     setValue,
-
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -130,8 +130,12 @@ const Register = () => {
           />
           <div className="image-register">
             <ImagePicker onChange={handleImage} />
-            {image && (
-              <img className="handled-image-register" src={image} alt="" />
+            {getValues("image") && (
+              <img
+                className="handled-image-register"
+                src={getValues("image")}
+                alt=""
+              />
             )}
           </div>
 

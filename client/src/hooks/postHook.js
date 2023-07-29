@@ -17,10 +17,10 @@ export const usePostHook = () => {
       setLoading(true);
       const response = await Axios.post(`${API_URL}posts`, data, config);
       setLoading(false);
-      console.log(response.data);
+      console.log(response.data.post);
       return {
         message: "OK",
-        data: response.data,
+        data: response.data.post,
       };
     } catch (err) {
       return {
@@ -39,23 +39,22 @@ export const usePostHook = () => {
       }
       const response = await Axios.get(url);
       setLoading(false);
-      return {
-        message: "ok",
-        data: response.data,
-      };
+      if (response?.data?.posts) {
+        // console.log(response.data.posts);
+        return response.data.posts;
+      } else {
+        setError(response.data.message);
+      }
     } catch (error) {
       setLoading(false);
-      return {
-        message: "Could not get posts",
-        data: null,
-      };
+      setError("Could not get Posts");
     }
   };
 
   const getPost = async (postId) => {
     try {
       const response = await Axios.get(`${API_URL}posts/${postId}`);
-      console.log(response);
+      // console.log(response);
       if (response?.data?.post) {
         return response.data.post;
       } else {

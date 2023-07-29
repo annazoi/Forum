@@ -17,7 +17,6 @@ const post = () => {
   const { getPost, deletePost, error } = usePostHook();
   const { createComment, loading } = useCommentHook();
   const [post, setPost] = useState({});
-  const [image, setImage] = useState();
   const [comment, setComment] = useState({});
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
@@ -33,9 +32,8 @@ const post = () => {
         const post = await getPost(params.postId);
         if (post) {
           setPost(post);
+          setComments(post.comments);
         }
-        setComments(response.data.comments);
-        setImage(response.data.creatorId.image);
       } catch (error) {
         console.log(error);
       }
@@ -87,7 +85,7 @@ const post = () => {
             </h1>
           </>
         )}
-        <Comments comments={comments} />
+        <Comments comments={post.comments} />
 
         <form className="input-comment" onSubmit={handleSubmit(onSubmit)}>
           <Textarea

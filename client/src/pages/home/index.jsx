@@ -24,11 +24,10 @@ import BeatLoader from "react-spinners/BeatLoader";
 const Home = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
 
-  const { createPost, getPosts, loading } = usePostHook();
+  const { createPost, getPosts, loading, error } = usePostHook();
 
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
-  const [image, setImage] = useState();
 
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -42,9 +41,10 @@ const Home = () => {
   const getAllPosts = async () => {
     try {
       const posts = await getPosts();
-      // console.log("allPosts", posts);
-      setPosts(posts.data);
-      setFilteredPosts(posts.data);
+      if (posts) {
+        setPosts(posts);
+        setFilteredPosts(posts);
+      }
     } catch (err) {
       return {
         message: "Could not get Posts",
@@ -125,7 +125,6 @@ const Home = () => {
             register={register}
           />
           <ImagePicker onChange={handleImage} />
-          <img src={image} alt="" />
           <Button
             style={{ marginTop: "1px" }}
             type="submit"
@@ -146,6 +145,8 @@ const Home = () => {
       ) : (
         <Posts posts={filteredPosts} to={"/posts"} />
       )}
+      {/* {error && <p>{error}</p>}
+      {posts && <Posts posts={filteredPosts} to={"/posts"} />} */}
     </>
   );
 };

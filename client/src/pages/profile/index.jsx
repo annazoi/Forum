@@ -12,33 +12,48 @@ const profile = () => {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const params = useParams();
-  const { getUser } = useAuthHook();
+  const { getUser, error } = useAuthHook();
   const { getPosts } = usePostHook();
 
   useEffect(() => {
-    const getCreator = async () => {
+    const getSpecificUser = async () => {
       try {
-        const res = await getUser(params.creatorId);
-        setUser(res.data);
-        console.log(res.data);
+        const user = await getUser(params.creatorId);
+        // console.log(user);
+        if (user) {
+          setUser(user);
+        }
       } catch (err) {
-        console.log("Could not get creator");
+        console.log(err, "Could not get User");
       }
     };
-    const returnPosts = async () => {
+    const getAllPosts = async () => {
       const posts = await getPosts(params.creatorId);
-      setPosts(posts.data);
+      if (posts) {
+        setPosts(posts);
+      }
     };
 
-    getCreator();
-    returnPosts();
+    getSpecificUser();
+    getAllPosts();
   }, []);
 
   return (
     <>
-      <Profile user={user}></Profile>
-
-      <Posts posts={posts}></Posts>
+      {error && error ? (
+        <h1
+          style={{ margin: "0 auto", marginTop: "150px", textAlign: "center" }}>
+          User Not Found
+        </h1>
+      ) : (
+        <>
+          {" "}
+          <Profile user={user}></Profile>
+          <div style={{ marginTop: "40px" }}>
+            <Posts posts={posts}></Posts>
+          </div>
+        </>
+      )}
     </>
   );
 };
