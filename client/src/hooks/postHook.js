@@ -47,21 +47,24 @@ export const usePostHook = () => {
       }
     } catch (error) {
       setLoading(false);
-      setError("Could not get Posts");
+      setError("Posts Not Found Yet");
     }
   };
 
   const getPost = async (postId) => {
     try {
+      setLoading(true);
       const response = await Axios.get(`${API_URL}posts/${postId}`);
       // console.log(response);
+      setLoading(false);
       if (response?.data?.post) {
         return response.data.post;
       } else {
         setError(response.data.message);
       }
     } catch (error) {
-      setError("Could not get Post");
+      setLoading(false);
+      setError("Post Not Found");
     }
   };
 
@@ -80,11 +83,35 @@ export const usePostHook = () => {
     }
   };
 
+  const createComment = async (data, postId) => {
+    try {
+      setLoading(true);
+      const response = await Axios.post(
+        `${API_URL}posts/${postId}/comments`,
+        data,
+        config
+      );
+      setLoading(false);
+
+      return {
+        message: "ok",
+        data: response.data,
+      };
+    } catch (err) {
+      // setLoading(false);
+      return {
+        message: "Could not create Comment",
+        data: null,
+      };
+    }
+  };
+
   return {
     createPost,
     getPosts,
     getPost,
     deletePost,
+    createComment,
     loading,
     error,
   };

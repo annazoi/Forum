@@ -24,3 +24,15 @@
   text-align: center;
   padding: 0 auto;
 }
+
+.texrarea-comment {
+  background-color: rgba(134, 112, 144, 0.3);
+  border-bottom: 2px rgb(202, 193, 204) solid;
+}
+.forum-container {
+  display: flex;
+  /* width: fit-content; */
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  margin-top: 100px;
+}

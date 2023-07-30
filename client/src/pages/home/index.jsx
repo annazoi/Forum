@@ -11,8 +11,7 @@ import { authStore } from "../../store/auth";
 import Posts from "../../components/Posts";
 import Search from "../../components/Search";
 import { toast } from "react-toastify";
-import ImagePicker from "../../components/ui/ImagePicker";
-import BeatLoader from "react-spinners/BeatLoader";
+import Spinner from "../../components/ui/Spinner";
 
 // const override = {
 //   CSSProperties: {
@@ -22,7 +21,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 //   },
 // };
 const Home = () => {
-  const { isLoggedIn, userId } = authStore((store) => store);
+  const { isLoggedIn } = authStore((store) => store);
 
   const { createPost, getPosts, loading, error } = usePostHook();
 
@@ -33,7 +32,7 @@ const Home = () => {
     defaultValues: {
       title: "",
       description: "",
-      image: "",
+      // image: "",
     },
     resolver: yupResolver(postSchema),
   });
@@ -61,35 +60,9 @@ const Home = () => {
     );
   };
 
-  const handleImage = (event) => {
-    const file = event.target.files[0];
-    setFileToBase(file);
-  };
-
-  const setFileToBase = (file) => {
-    makeBase64(file).then((base64) => {
-      setValue("image", base64);
-    });
-  };
-
   useEffect(() => {
     getAllPosts();
   }, []);
-
-  const makeBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
 
   const onSubmit = async (data) => {
     // console.log("data", data);
@@ -124,7 +97,6 @@ const Home = () => {
             placeholder="Share a Thought"
             register={register}
           />
-          <ImagePicker onChange={handleImage} />
           <Button
             style={{ marginTop: "1px" }}
             type="submit"
@@ -134,18 +106,21 @@ const Home = () => {
       </div>
       <Search onChange={handleFilterChange}></Search>
       {loading ? (
-        <BeatLoader
-          color="rgb(43, 80, 70)"
-          loading={loading}
-          // cssOverride={override}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
+        <Spinner loading={loading}></Spinner>
+      ) : error ? (
+        <h1
+          style={{
+            margin: "0 auto",
+            marginTop: "50px",
+            marginBottom: "100px",
+            textAlign: "center",
+          }}>
+          {error}
+        </h1>
       ) : (
         <Posts posts={filteredPosts} to={"/posts"} />
       )}
-      {/* {error && <p>{error}</p>}
+      {/* {error && }
       {posts && <Posts posts={filteredPosts} to={"/posts"} />} */}
     </>
   );

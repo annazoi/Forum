@@ -34,10 +34,10 @@ const postSchema = mongoose.Schema({
     ref: "User",
   },
 
-  image: {
-    type: String,
-    required: true,
-  },
+  // image: {
+  //   type: String,
+  //   required: true,
+  // },
 
   date: {
     type: Date,

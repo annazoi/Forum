@@ -15,13 +15,11 @@ import { commentSchema } from "../../validation-schemas/comment";
 
 const Register = () => {
   const { registerUser, loading, error, data } = useAuthHook();
-  const [image, setImage] = useState();
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -35,38 +33,10 @@ const Register = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const handleImage = (event) => {
-    const file = event.target.files[0];
-    setFileToBase(file);
-    setImage(file);
-  };
-
-  const setFileToBase = (file) => {
-    makeBase64(file).then((base64) => {
-      setValue("image", base64);
-      setImage(base64);
-    });
-  };
-
   useEffect(() => {
     if (!data) return;
     if (data.token) return navigate("/login");
   }, [data]);
-
-  const makeBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
 
   const onSubmit = (data) => {
     try {
@@ -76,12 +46,23 @@ const Register = () => {
     }
   };
 
+  const handleImage = (image) => {
+    setValue("image", image);
+  };
+
+  // const handleTest = (e) => {
+  //   console.log(e.target.name,e.target.vak=lue);
+  // };
+
   return (
     <div className="register-form">
       <h1 style={{ paddingTop: "20px" }}>Register</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs-container">
+          {/* <input placeholder="test" name="test" onChange={handleTest} />
+          <input placeholder="test2" name="test2" onChange={handleTest} /> */}
+
           <Input
             name="name"
             type="text"
@@ -130,13 +111,6 @@ const Register = () => {
           />
           <div className="image-register">
             <ImagePicker onChange={handleImage} />
-            {getValues("image") && (
-              <img
-                className="handled-image-register"
-                src={getValues("image")}
-                alt=""
-              />
-            )}
           </div>
 
           {error && <p>{error}</p>}

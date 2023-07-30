@@ -7,6 +7,7 @@ const formidable = require("express-formidable");
 // Import the Routes
 const postRoutes = require("./routes/posts");
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
@@ -27,7 +28,7 @@ app.use(cors());
 // Import the Routes
 app.use("/posts", postRoutes);
 app.use("/auth", authRoutes);
-
+app.use("/users", userRoutes);
 // ROUTES
 // GET() -> fetch the data
 // POST() -> push the data

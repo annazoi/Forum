@@ -37,12 +37,12 @@ const NavBar = () => {
       color: "white",
       protected: false,
     },
-    // {
-    //   path: "/profile",
-    //   label: "Profile",
-    //   color: "white",
-    //   protected: true,
-    // },
+    {
+      path: `profile/${userId}`,
+      label: "Profile",
+      color: "white",
+      protected: true,
+    },
     {
       label: "Logout",
       onPress: logoutUser,
@@ -67,49 +67,57 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="nav-bar-container">
-      <div className="link-items">
-        {links.map((link, index) => {
-          if (link.protected && isLoggedIn) {
-            return (
-              <Link
-                key={index}
-                className="link-content"
-                // style={{ color: link.color ? link.color : "black" }}
-                style={{
-                  backgroundColor:
-                    isSelected === link.label
-                      ? "rgb(93, 112, 108) "
-                      : " rgba(134, 112, 144, 0.5)",
-                }}
-                to={link.path}
-                onClick={() => onClick(link)}>
-                {" "}
-                {link.label}{" "}
-              </Link>
-            );
-          } else if (!link.protected) {
-            return (
-              <Link
-                key={index}
-                className="link-content"
-                // style={{ color: link.color ? link.color : "black" }}
-                style={{
-                  backgroundColor:
-                    isSelected === link.label
-                      ? "rgb(93, 112, 108) "
-                      : " rgba(134, 112, 144, 0.5)",
-                }}
-                to={link.path}
-                onClick={() => onClick(link)}>
-                {" "}
-                {link.label}{" "}
-              </Link>
-            );
-          }
-        })}
+    <>
+      <div className="nav-bar-container">
+        <div className="link-items">
+          {links.map((link, index) => {
+            if (link.protected && isLoggedIn) {
+              return (
+                <Link
+                  key={index}
+                  className="link-content"
+                  // style={{ color: link.color ? link.color : "black" }}
+                  style={{
+                    backgroundColor:
+                      isSelected === link.label
+                        ? "rgb(93, 112, 108) "
+                        : " rgba(134, 112, 144, 0.5)",
+                  }}
+                  to={link.path}
+                  onClick={() => onClick(link)}>
+                  {" "}
+                  {link.label}{" "}
+                </Link>
+              );
+            } else if (!link.protected) {
+              return (
+                <Link
+                  key={index}
+                  className="link-content"
+                  // style={{ color: link.color ? link.color : "black" }}
+                  style={{
+                    backgroundColor:
+                      isSelected === link.label
+                        ? "rgb(93, 112, 108) "
+                        : " rgba(134, 112, 144, 0.5)",
+                  }}
+                  to={link.path}
+                  onClick={() => onClick(link)}>
+                  {" "}
+                  {link.label}{" "}
+                </Link>
+              );
+            }
+          })}
+        </div>
       </div>
-    </div>
+      <div>
+        <Link to={`/profile/${userId}`}>
+          profile
+          {/* <img src="" alt="" /> */}
+        </Link>
+      </div>
+    </>
   );
 };
 

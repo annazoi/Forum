@@ -1,5 +1,4 @@
 const Post = require("../model/Post");
-const cloudinary = require("../utils/cloudinary");
 
 const createPost = async (req, res) => {
   // const post = new Post({
@@ -7,20 +6,20 @@ const createPost = async (req, res) => {
   //   description: req.body.description,
   //   creatorId: req.userId,
   // });
-  const { title, description, image } = req.body;
+  const { title, description } = req.body;
   console.log(req.body);
   try {
-    const result = await cloudinary.uploader.upload(image, {
-      folder: "posts",
-      width: 300,
-      crop: "scale",
-    });
-    console.log(result.url);
+    // const result = await cloudinary.uploader.upload(image, {
+    //   folder: "posts",
+    //   width: 300,
+    //   crop: "scale",
+    // });
+    // console.log(result.url);
     const post = await Post.create({
       title,
       description,
       creatorId: req.userId,
-      image: result.url,
+      // image: result.url,
     });
 
     res.status(201).json({
