@@ -1,9 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./style.css";
 
-const ImagePicker = ({ name = "image", onChange, children }) => {
+const ImagePicker = ({ name = "image", onChange, children, value }) => {
   const imageRef = useRef(null);
   const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    setImage(value);
+  }, []);
 
   const handleImageClick = () => {
     imageRef.current.click();
@@ -48,7 +52,7 @@ const ImagePicker = ({ name = "image", onChange, children }) => {
           onClick={handleImageClick}
           className="image-preview"
           src={image}
-          alt=""
+          alt={name}
         />
       )}
 

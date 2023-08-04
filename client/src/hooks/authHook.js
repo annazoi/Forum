@@ -32,26 +32,9 @@ export const useAuthHook = () => {
     }
   };
 
-  const getUser = async (userId) => {
-    try {
-      setLoading(true);
-      const response = await Axios.get(`${API_URL}auth/${userId}`);
-      setLoading(false);
-      if (response?.data?.user) {
-        return response.data.user;
-      } else {
-        setError(response.data.message);
-      }
-    } catch (err) {
-      setLoading(false);
-      setError("User Not Found");
-    }
-  };
-
   return {
     loginUser,
     registerUser,
-    getUser,
     loading,
     error,
     data,

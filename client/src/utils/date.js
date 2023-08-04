@@ -1,4 +1,5 @@
 export function formatDate(inputDate) {
+  if (!inputDate) return;
   // Split the input date string into date and time parts
   const [datePart, timePart] = inputDate.split("T");
 

@@ -69,7 +69,7 @@ const Home = () => {
     try {
       if (isLoggedIn) {
         const res = await createPost(data);
-        console.log("res", res);
+        console.log("response", res);
         if (res.message === "OK") {
           toast.success("post created successfully");
           getAllPosts();
@@ -81,29 +81,27 @@ const Home = () => {
   };
   return (
     <>
-      <div className="forum-container">
-        <form className="create-post-form" onSubmit={handleSubmit(onSubmit)}>
-          <h1 style={{ margin: "20px" }}>Start a forum with a new post</h1>
-          <Input
-            name="title"
-            type="text"
-            placeholder="Title"
-            className="title-post"
-            register={register}
-          />
-          <Textarea
-            name="description"
-            type="text"
-            placeholder="Share a Thought"
-            register={register}
-          />
-          <Button
-            style={{ marginTop: "1px" }}
-            type="submit"
-            label={loading && posts.length > 0 ? "Loading" : "Post"}
-          />
-        </form>
-      </div>
+      <form className="create-post-form" onSubmit={handleSubmit(onSubmit)}>
+        <h1>Start a forum with a new post</h1>
+        <Input
+          name="title"
+          type="text"
+          placeholder="Title"
+          className="title-post"
+          register={register}
+        />
+        <Textarea
+          name="description"
+          type="text"
+          placeholder="Share a Thought"
+          register={register}
+        />
+        <Button
+          className="create-post-button"
+          type="submit"
+          label={loading && posts.length > 0 ? "Loading" : "Post"}
+        />
+      </form>
       <Search onChange={handleFilterChange}></Search>
       {loading ? (
         <Spinner loading={loading}></Spinner>

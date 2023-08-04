@@ -35,7 +35,10 @@ const updateUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).exec();
     if (!user)
-      return res.status(404).send("The User with the given ID was not found.");
+      return res.status(404).json({
+        message: "The User with the given ID was not found.",
+        user: null,
+      });
 
     let query = { $set: {} };
     for (let key in req.body) {
@@ -48,9 +51,9 @@ const updateUser = async (req, res) => {
       query
     ).exec();
 
-    res.send(updatedUser);
+    res.status(201).json({ message: "ok", user: updatedUser });
   } catch (err) {
-    res.json({ message: err });
+    res.status(404).json({ message: err, user: null });
   }
 };
 exports.getUsers = getUsers;

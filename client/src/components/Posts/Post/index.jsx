@@ -4,42 +4,46 @@ import { authStore } from "../../../store/auth";
 import { Link, useParams } from "react-router-dom";
 import Button from "../../ui/Button";
 import { formatDate } from "../../../utils/date";
+import { VscTrash } from "react-icons/vsc";
 
 const Post = ({ post, onClick }) => {
-  const { isLoggedIn, userId } = authStore((store) => store);
-  const params = useParams();
+  const { userId } = authStore((store) => store);
 
   return (
-    <div className="specificPost-container">
-      <div className="specificPost-content">
-        <h1>You Story</h1>
-        <p style={{ fontSize: "30px" }}>
-          <b>{post.title}</b>
-          {/* <img src={post.image} alt="" /> */}
-        </p>
-        <p style={{ fontSize: "20px", marginTop: "60px" }}>
-          {post.description}
-        </p>
-
-        <div className="specificPost-info">
-          {post.creatorId && (
-            <h1>
-              Story By:{" "}
-              <Link to={`/profile/${post.creatorId._id}`}>
-                {post.creatorId.username}
-              </Link>
-            </h1>
-          )}
-          {post.date && <p>{formatDate(post.date)}</p>}
-        </div>
-      </div>
-
+    <div className="specificPost-content">
+      <span
+        style={{
+          borderBottom: "3px solid rgba(101, 101, 101, 0.252)",
+          color: "white",
+          fontFamily: "Arial, sans-serif",
+        }}>
+        Your Story
+      </span>
+      <span style={{ fontSize: "25px" }}>
+        <b>{post.title}</b>
+      </span>
+      <span
+        style={{
+          fontSize: "20px",
+          borderBottom: "3px solid rgba(101, 101, 101, 0.252)",
+        }}>
+        {post.description}
+      </span>
       {post.creatorId && userId === post.creatorId._id && (
         <Button
-          style={{ marginTop: "1px" }}
-          label="delete"
+          style={{ fontSize: "20px" }}
+          label={<VscTrash />}
           onClick={onClick}></Button>
       )}
+      <span>
+        <h1>
+          Story By:{" "}
+          <Link to={`/profile/${post?.creatorId?._id}`}>
+            {post?.creatorId?.username}
+          </Link>
+        </h1>
+      </span>
+      <span>{formatDate(post?.date)}</span>
     </div>
   );
 };

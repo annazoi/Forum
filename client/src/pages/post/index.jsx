@@ -47,12 +47,12 @@ const post = () => {
 
   const removePost = async () => {
     if (post.creatorId && userId === post.creatorId._id) {
-      await deletePost(post._id).then((response) => {
-        console.log("deleted");
-      });
-      navigate("/home");
+      const response = await deletePost(post._id);
+      if (response.deleted) {
+        navigate("/home");
+      }
     } else {
-      // alert("delete only your post");
+      alert("delete only your post");
     }
   };
 
@@ -79,18 +79,22 @@ const post = () => {
 
   return (
     <>
-      {loading ? (
-        <Spinner loading={loading}></Spinner>
-      ) : error ? (
-        <h1
-          style={{ margin: "0 auto", marginTop: "150px", textAlign: "center" }}>
-          {error}
-        </h1>
-      ) : (
-        <>
-          {" "}
-          <Post post={post} onClick={removePost}></Post>
-          <div className="comments-container">
+      <div className="specificPost-container">
+        {loading ? (
+          <Spinner loading={loading}></Spinner>
+        ) : error ? (
+          <h1
+            style={{
+              margin: "0 auto",
+              marginTop: "150px",
+              textAlign: "center",
+            }}>
+            {error}
+          </h1>
+        ) : (
+          <>
+            {" "}
+            <Post post={post} onClick={removePost}></Post>
             {!isLoggedIn && (
               <>
                 <h1>
@@ -102,27 +106,24 @@ const post = () => {
               </>
             )}
             <Comments comments={post.comments} />
-          </div>
-        </>
-      )}
-      {!error && (
-        <div className="create-post-form " style={{ marginTop: "40px" }}>
-          <form className="input-comment" onSubmit={handleSubmit(onSubmit)}>
+          </>
+        )}
+        {!error && (
+          <form className="create-comment" onSubmit={handleSubmit(onSubmit)}>
             <Textarea
               name="description"
               placeholder="Create a comment for this post"
               register={register}
-              className="texrarea-comment"
             />
             <Button
-              style={{ marginTop: "1px" }}
+              className="create-comment-button"
               type="submit"
               label={loading ? "Loading " : "Comment"}
               onClick={onSubmit}
             />
           </form>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

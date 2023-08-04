@@ -70,15 +70,19 @@ export const usePostHook = () => {
 
   const deletePost = async (postId) => {
     try {
-      const response = await Axios.delete(`${API_URL}posts/${postId}`);
-      return {
-        message: "delete ok",
-        data: response.data,
-      };
+      const response = await Axios.delete(`${API_URL}posts/${postId}`, config);
+      if (response?.data?.deletedCount === 1) {
+        return {
+          deleted: true,
+        };
+      } else {
+        return {
+          deleted: false,
+        };
+      }
     } catch (error) {
       return {
-        message: "Could not delete post",
-        data: null,
+        deleted: false,
       };
     }
   };

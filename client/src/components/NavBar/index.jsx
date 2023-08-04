@@ -111,12 +111,6 @@ const NavBar = () => {
           })}
         </div>
       </div>
-      <div>
-        <Link to={`/profile/${userId}`}>
-          profile
-          {/* <img src="" alt="" /> */}
-        </Link>
-      </div>
     </>
   );
 };

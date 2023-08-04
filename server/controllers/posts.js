@@ -40,7 +40,6 @@ const deletePost = async (req, res) => {
       _id: req.params.id,
       creatorId: req.userId,
     });
-
     res.json(removedPost);
   } catch (err) {
     res.status(404).send({ message: "post not found" });

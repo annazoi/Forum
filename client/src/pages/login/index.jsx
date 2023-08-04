@@ -43,27 +43,31 @@ const Login = () => {
 
   return (
     <div className="login-form">
-      <h1 style={{ paddingTop: "20px" }}>Sign In</h1>
+      <h1>Sign In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="inputs-container">
-          <Input
-            name="email"
-            type="text"
-            placeholder="Email"
-            register={register}
-            error={errors.email?.message}
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Password"
-            register={register}
-            error={errors.password?.message}
-          />
-          {error && <p className="error-container">{error}</p>}
+        {/* <div className="inputs-container"> */}
+        <Input
+          name="email"
+          type="text"
+          placeholder="Email"
+          register={register}
+          error={errors.email?.message}
+        />
+        <Input
+          name="password"
+          type="password"
+          placeholder="Password"
+          register={register}
+          error={errors.password?.message}
+        />
+        {error && <p className="error-container">{error}</p>}
 
-          <Button type="submit" label={loading ? "Loading" : "Sign In"} />
-        </div>
+        <Button
+          type="submit"
+          label={loading ? "Loading" : "Sign In"}
+          style={{ marginTop: "20px" }}
+        />
+        {/* </div> */}
       </form>
       {!isLoggedIn && (
         <p style={{ paddingBottom: "20px" }}>

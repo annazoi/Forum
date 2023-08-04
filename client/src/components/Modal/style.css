@@ -1,0 +1,37 @@
+.modal-container {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.307);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: fit-content;
+  max-height: 700px;
+  max-width: 500px;
+  width: 100%;
+  overflow: auto;
+  margin: 20px;
+  border-radius: 12px;
+  background-color: rgb(149, 149, 149);
+  box-shadow: rgba(0, 0, 0, 0.8) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.closeButton {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeButton button {
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}

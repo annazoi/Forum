@@ -3,6 +3,7 @@ import "./style.css";
 import { formatDate } from "../../utils/date";
 import Button from "../../components/ui/Button";
 import { authStore } from "../../store/auth";
+import { VscTrash } from "react-icons/vsc";
 
 const Comments = ({ comments, onClick }) => {
   const { userId } = authStore((store) => store);
@@ -12,39 +13,28 @@ const Comments = ({ comments, onClick }) => {
       {comments?.map((comment, index) => {
         return (
           <div key={index} className="comment-content">
-            {/* <link
-              rel="stylesheet"
-              href="https://icons.veryicon.com/png/o/miscellaneous/flat-wireframe-library/trash-bin-3.png"
-            /> */}
-            <div className="photo-comment-container">
-              <img
-                className="photo-comment-content"
-                src={comment.creatorId.image}
-                alt=""
-              />
-            </div>
+            <img
+              className="photo-comment-content"
+              src={comment.creatorId.image}
+              alt=""
+            />
+
             <div className="comment-description">
-              <h1 style={{ display: "flex" }}>
+              <span>
                 <Link to={`/profile/${comment.creatorId._id}`}>
-                  {comment.creatorId.username}{" "}
-                </Link>
-                <p
-                  style={{
-                    fontSize: "12px",
-                    marginTop: "1px",
-                    marginLeft: "20px",
-                  }}>
-                  {formatDate(comment.date)}
-                </p>
-              </h1>
-              <p style={{ fontSize: "20px" }}>{comment.description}</p>
-              {comment.creatorId && userId === comment.creatorId._id && (
-                <Button
-                  style={{ marginTop: "4px", margin: "auto" }}
-                  label="delete"
-                  onClick={onClick}></Button>
-              )}
+                  {comment.creatorId.username}
+                </Link>{" "}
+                {comment.description}
+                <h1 style={{ fontSize: "12px" }}>{formatDate(comment.date)}</h1>
+              </span>
             </div>
+            {comment.creatorId && userId === comment.creatorId._id && (
+              <Button
+                className="delete-comment"
+                label={<VscTrash />}
+                // label="delete this comment"
+                onClick={onClick}></Button>
+            )}
           </div>
         );
       })}

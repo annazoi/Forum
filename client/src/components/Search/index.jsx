@@ -1,6 +1,4 @@
-import { useState } from "react";
 import "./style.css";
-import Input from "../../components/ui/Input";
 
 const Search = ({ onChange }) => {
   return (
@@ -8,7 +6,7 @@ const Search = ({ onChange }) => {
       <input
         className="search-content"
         type="text"
-        placeholder="Search..."
+        placeholder="Search post..."
         onChange={onChange}
       />
     </div>

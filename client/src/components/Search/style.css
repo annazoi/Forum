@@ -5,8 +5,8 @@
 }
 
 .search-content {
-  background-color: rgba(134, 112, 144, 0.5);
-  color: rgb(93, 112, 108);
+  background-color: rgba(126, 122, 128, 0.5);
+  color: rgb(43, 40, 40);
   margin: auto;
   margin-bottom: 30px;
   margin-top: 30px;
@@ -22,6 +22,6 @@
 }
 
 .search-content:focus {
-  border-bottom: 2px solid #5b5fc7;
+  border-bottom: 2px solid #4c6254;
   border-radius: 4px 4px 2px 2px;
 }
