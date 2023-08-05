@@ -12,10 +12,14 @@ export const useAuthHook = () => {
       setLoading(true);
       const response = await Axios.post(`${API_URL}auth/login`, data);
       setLoading(false);
-      setData(response.data);
-      console.log(response.data.userId);
+      if (response?.data) {
+        setData(response.data);
+      } else {
+        setError(response?.data.message);
+      }
     } catch (err) {
-      const message = err.response.data.message;
+      setLoading(false);
+      const message = err.response?.data.message;
       setError(message);
     }
   };
@@ -27,7 +31,8 @@ export const useAuthHook = () => {
       setLoading(false);
       setData(response.data);
     } catch (err) {
-      const message = err.response.data.message;
+      setLoading(false);
+      const message = err.response?.data.message;
       setError(message);
     }
   };

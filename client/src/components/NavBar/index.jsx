@@ -1,23 +1,15 @@
 import { Link } from "react-router-dom";
 import "./style.css";
 import { authStore } from "../../store/auth";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { usePostHook } from "../../hooks/postHook";
 
 const NavBar = () => {
-  const { logOut, logIn, isLoggedIn, userId } = authStore((store) => store);
+  const { logOut, isLoggedIn, userId } = authStore((store) => store);
 
   const [isSelected, setSelected] = useState("");
 
   const { pathname } = useLocation();
-
-  const { getPosts } = usePostHook();
-  const [posts, setPosts] = useState({});
-
-  const { register, handleSubmit } = useForm({});
 
   const logoutUser = () => {
     logOut();
@@ -76,7 +68,6 @@ const NavBar = () => {
                 <Link
                   key={index}
                   className="link-content"
-                  // style={{ color: link.color ? link.color : "black" }}
                   style={{
                     backgroundColor:
                       isSelected === link.label
@@ -94,7 +85,6 @@ const NavBar = () => {
                 <Link
                   key={index}
                   className="link-content"
-                  // style={{ color: link.color ? link.color : "black" }}
                   style={{
                     backgroundColor:
                       isSelected === link.label

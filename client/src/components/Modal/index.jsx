@@ -1,4 +1,3 @@
-import Button from "../ui/Button";
 import "./style.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 

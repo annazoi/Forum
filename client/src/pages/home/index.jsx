@@ -3,23 +3,15 @@ import "./style.css";
 import { useForm } from "react-hook-form";
 import Input from "../../components/ui/Input";
 import { usePostHook } from "../../hooks/postHook";
-import { useEffect, useState, CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { postSchema } from "../../validation-schemas/post";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Textarea from "../../components/ui/Textarea";
 import { authStore } from "../../store/auth";
 import Posts from "../../components/Posts";
 import Search from "../../components/Search";
-import { toast } from "react-toastify";
 import Spinner from "../../components/ui/Spinner";
 
-// const override = {
-//   CSSProperties: {
-//     display: "block",
-//     margin: "0 auto",
-//     borderColor: "red",
-//   },
-// };
 const Home = () => {
   const { isLoggedIn } = authStore((store) => store);
 
@@ -28,11 +20,10 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
-  const { register, handleSubmit, setValue } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: {
       title: "",
       description: "",
-      // image: "",
     },
     resolver: yupResolver(postSchema),
   });
@@ -65,24 +56,21 @@ const Home = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    // console.log("data", data);
     try {
       if (isLoggedIn) {
         const res = await createPost(data);
-        console.log("response", res);
         if (res.message === "OK") {
-          toast.success("post created successfully");
           getAllPosts();
         }
       } else return alert("connect first");
     } catch (err) {
-      console.log("Could not create post");
+      alert("Could not create post. Please try later");
     }
   };
   return (
     <>
       <form className="create-post-form" onSubmit={handleSubmit(onSubmit)}>
-        <h1>Start a forum with a new post</h1>
+        <h1 style={{ fontWeight: "bold" }}>Start a forum with a new post</h1>
         <Input
           name="title"
           type="text"
@@ -118,8 +106,6 @@ const Home = () => {
       ) : (
         <Posts posts={filteredPosts} to={"/posts"} />
       )}
-      {/* {error && }
-      {posts && <Posts posts={filteredPosts} to={"/posts"} />} */}
     </>
   );
 };

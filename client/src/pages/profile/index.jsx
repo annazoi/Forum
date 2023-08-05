@@ -2,30 +2,25 @@ import "./style.css";
 import { useEffect, useState } from "react";
 import { usePostHook } from "../../hooks/postHook";
 import { useUserHook } from "../../hooks/userHook";
-import { useAuthHook } from "../../hooks/authHook";
 import Profile from "../../components/Profile";
 import Posts from "../../components/Posts";
-import { authStore } from "../../store/auth";
 import Spinner from "../../components/ui/Spinner";
 import Button from "../../components/ui/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../../validation-schemas/auth";
 import { useParams } from "react-router-dom";
-import Input from "../../components/ui/Input";
 import ImagePicker from "../../components/ui/ImagePicker";
 import Modal from "../../components/Modal";
+import Form from "../../components/Form";
 
 const profile = () => {
-  const { isLoggedIn, userId } = authStore((store) => store);
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const params = useParams();
-  const { getUser, error, loading } = useUserHook();
-  const { registerUser } = useAuthHook();
-  const { updateUser } = useUserHook();
-  const { getPosts } = usePostHook();
+  const { getUser, updateUser, userError, loading } = useUserHook();
+  const { getPosts, error } = usePostHook();
 
   const {
     register,
@@ -42,7 +37,6 @@ const profile = () => {
     const getSpecificUser = async () => {
       try {
         const user = await getUser(params.creatorId);
-        // console.log("user", user);
         if (user) {
           setUser(user);
           let userData = {
@@ -52,7 +46,6 @@ const profile = () => {
             email: user.email,
             image: user.image,
           };
-          console.log(userData);
           reset(userData);
         }
       } catch (err) {
@@ -70,12 +63,6 @@ const profile = () => {
     getAllPosts();
   }, []);
 
-  // if (openModal) {
-  //   document.body.classList.add("modal-container");
-  // } else {
-  //   document.body.classList.remove("modal-container");
-  // }
-
   const handlModal = () => {
     setOpenModal(true);
   };
@@ -83,7 +70,7 @@ const profile = () => {
   const onSubmit = async (data) => {
     try {
       const updatedUser = await updateUser(params.creatorId, data);
-      // console.log(updatedUser);
+      alert("User updated successfully");
     } catch (err) {
       console.log("could not update user", err);
     }
@@ -95,22 +82,37 @@ const profile = () => {
 
   return (
     <>
-      <div className="profile-container">
-        {loading ? (
-          <Spinner></Spinner>
-        ) : error ? (
-          <h1
-            style={{
-              margin: "0 auto",
-              marginTop: "150px",
-              textAlign: "center",
-            }}>
-            {error}
-          </h1>
-        ) : (
-          <Profile user={user} onClick={handlModal}></Profile>
-        )}
-
+      {loading ? (
+        <Spinner></Spinner>
+      ) : userError ? (
+        <h1
+          style={{
+            margin: "0 auto",
+            marginTop: "150px",
+            textAlign: "center",
+          }}>
+          {userError}
+        </h1>
+      ) : (
+        <>
+          <div className="public-profile">
+            <Profile user={user} onClick={handlModal}></Profile>
+          </div>{" "}
+          {error ? (
+            <h1
+              style={{
+                margin: "0 auto",
+                marginTop: "50px",
+                textAlign: "center",
+              }}>
+              {error}
+            </h1>
+          ) : (
+            <Posts posts={posts}></Posts>
+          )}
+        </>
+      )}
+      <div className="public-profile">
         <Modal
           isOpen={openModal}
           handlClose={setOpenModal}
@@ -118,58 +120,7 @@ const profile = () => {
             <form
               className="edit-profile-form"
               onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                // defaultValue={user.name}
-                name="name"
-                type="text"
-                placeholder="Name"
-                register={register}
-                error={errors.name?.message}
-              />
-              <Input
-                // defaultValue={user.surname}
-                name="surname"
-                type="text"
-                placeholder="Surname"
-                register={register}
-                error={errors.surname?.message}
-              />
-
-              <Input
-                // defaultValue={user.username}
-                name="username"
-                type="text"
-                placeholder="Username"
-                register={register}
-                error={errors.username?.message}
-              />
-
-              <Input
-                // defaultValue={user.email}
-                name="email"
-                type="email"
-                placeholder="Email"
-                register={register}
-                error={errors.email?.message}
-              />
-
-              <Input
-                // value={user.password}
-                name="password"
-                type="password"
-                placeholder="Password"
-                register={register}
-                error={errors.password?.message}
-              />
-
-              <Input
-                // value={user.confirmPassword}
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirm Password"
-                register={register}
-                error={errors.confirmPassword?.message}
-              />
+              <Form errors={errors} register={register}></Form>
 
               <ImagePicker
                 value={getValues("image")}
@@ -185,13 +136,11 @@ const profile = () => {
                       setOpenModal(false);
                     }
                   }}></Button>
-                <Button label="Save" type="submit" />
+
+                <Button label={loading ? "loading" : "Save"} type="submit" />
               </div>
             </form>
           }></Modal>
-      </div>
-      <div style={{ marginTop: "40px" }}>
-        <Posts posts={posts}></Posts>
       </div>
     </>
   );

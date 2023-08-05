@@ -3,7 +3,7 @@ import { API_URL } from "../constants";
 import { useState } from "react";
 
 export const useUserHook = () => {
-  const [error, setError] = useState();
+  const [userError, setError] = useState();
   const [loading, setLoading] = useState(false);
 
   const getUser = async (userId) => {
@@ -24,18 +24,22 @@ export const useUserHook = () => {
 
   const updateUser = async (userId, data) => {
     try {
+      setLoading(true);
       const response = await Axios.put(`${API_URL}users/${userId}`, data);
+      setLoading(false);
       if (response?.data?.user) {
         return response.data.user;
       }
     } catch (err) {
+      setLoading(false);
       console.log("Could not update User", err);
+      setError("User could not updated");
     }
   };
   return {
     getUser,
     updateUser,
-    error,
+    userError,
     loading,
   };
 };

@@ -1,5 +1,6 @@
 .login-form {
   display: grid;
+  word-break: break-all;
   margin: 0 auto;
   text-align: center;
   padding: 30px;
@@ -11,6 +12,9 @@
 }
 
 .login-form a {
-  text-decoration: none;
   color: var(--link-color);
+}
+
+.login-button {
+  margin: 30px;
 }

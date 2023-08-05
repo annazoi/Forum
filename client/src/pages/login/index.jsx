@@ -33,19 +33,24 @@ const Login = () => {
       });
       navigate("/home");
     }
-    console.log(data);
   }, [data]);
 
   const onSubmit = (data) => {
-    console.log(data);
-    loginUser(data);
+    try {
+      if (data) {
+        loginUser(data);
+      } else {
+        console.log("sd");
+      }
+    } catch (err) {
+      console.log("Could not login");
+    }
   };
 
   return (
     <div className="login-form">
-      <h1>Sign In</h1>
+      <h1 style={{ fontWeight: "bold" }}>Sign In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* <div className="inputs-container"> */}
         <Input
           name="email"
           type="text"
@@ -63,16 +68,15 @@ const Login = () => {
         {error && <p className="error-container">{error}</p>}
 
         <Button
+          className="login-button"
           type="submit"
           label={loading ? "Loading" : "Sign In"}
-          style={{ marginTop: "20px" }}
         />
-        {/* </div> */}
       </form>
       {!isLoggedIn && (
-        <p style={{ paddingBottom: "20px" }}>
+        <h1>
           You don't have account; <Link to="/register">Register</Link>
-        </p>
+        </h1>
       )}
     </div>
   );

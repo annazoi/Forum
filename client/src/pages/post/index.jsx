@@ -2,7 +2,7 @@ import "./style.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState, useEffect, isValidElement, useRef } from "react";
+import { useState, useEffect } from "react";
 import { usePostHook } from "../../hooks/postHook";
 import { authStore } from "../../store/auth";
 import { commentSchema } from "../../validation-schemas/comment";
@@ -11,14 +11,11 @@ import Textarea from "../../components/ui/Textarea";
 import Comments from "../../components/Comment";
 import Post from "../../components/Posts/Post";
 import Spinner from "../../components/ui/Spinner";
-import { ToastContainer, toast } from "react-toastify";
 
 const post = () => {
   const { isLoggedIn, userId } = authStore((store) => store);
   const { getPost, deletePost, createComment, error, loading } = usePostHook();
   const [post, setPost] = useState({});
-  const [comment, setComment] = useState({});
-  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -34,7 +31,6 @@ const post = () => {
       const post = await getPost(params.postId);
       if (post) {
         setPost(post);
-        setComments(post.comments);
       }
     } catch (error) {
       console.log(error);
@@ -56,16 +52,10 @@ const post = () => {
     }
   };
 
-  const notify = () => {
-    toast("succesfully comment");
-  };
-
   const onSubmit = async (data) => {
     try {
       if (isLoggedIn) {
-        const res = await createComment(data, post._id);
-        setComment(data);
-        // console.log(data);
+        await createComment(data, post._id);
         specificPost();
       } else {
         alert("Connect first");

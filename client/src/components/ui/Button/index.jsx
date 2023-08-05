@@ -2,11 +2,12 @@ import "./style.css";
 
 const Button = ({
   type = "button",
-  label = "click",
+  label,
   onClick,
   style,
   className,
   variant = "primary",
+  icon,
 }) => {
   return (
     <button
@@ -15,6 +16,7 @@ const Button = ({
       className={`button-container button-${variant} ${className}`}
       type={type}>
       {label}
+      {icon && icon}
     </button>
   );
 };

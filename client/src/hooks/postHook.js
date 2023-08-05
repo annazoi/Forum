@@ -18,15 +18,9 @@ export const usePostHook = () => {
       const response = await Axios.post(`${API_URL}posts`, data, config);
       setLoading(false);
       console.log(response.data.post);
-      return {
-        message: "OK",
-        data: response.data.post,
-      };
+      return response.data.post;
     } catch (err) {
-      return {
-        message: "Could not create post",
-        data: null,
-      };
+      setLoading(false);
     }
   };
 
@@ -40,7 +34,6 @@ export const usePostHook = () => {
       const response = await Axios.get(url);
       setLoading(false);
       if (response?.data?.posts) {
-        // console.log(response.data.posts);
         return response.data.posts;
       } else {
         setError(response.data.message);
@@ -55,7 +48,6 @@ export const usePostHook = () => {
     try {
       setLoading(true);
       const response = await Axios.get(`${API_URL}posts/${postId}`);
-      // console.log(response);
       setLoading(false);
       if (response?.data?.post) {
         return response.data.post;
@@ -102,7 +94,7 @@ export const usePostHook = () => {
         data: response.data,
       };
     } catch (err) {
-      // setLoading(false);
+      setLoading(false);
       return {
         message: "Could not create Comment",
         data: null,

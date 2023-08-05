@@ -16,14 +16,11 @@
   color: rgba(238, 238, 238, 0.835);
   border-radius: 7px;
   background-color: rgba(193, 196, 194, 0.5);
-  /* border: 2px solid rgba(134, 112, 144, 0.1); */
   margin: auto;
   text-align: center;
   background-color: transparent;
   border-bottom: 2px rgba(193, 196, 194, 0.5) solid;
-  /* width: 100%; */
   font-size: 18px;
-  text-transform: uppercase;
   letter-spacing: 4px;
 }
 
@@ -44,7 +41,6 @@ h1 {
   margin: 0 auto;
   text-align: center;
   width: 100%;
-  /* border-bottom: 2px rgb(202, 193, 204) solid; */
 }
 
 .create-post-button {

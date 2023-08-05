@@ -9,7 +9,6 @@ const Comments = ({ comments, onClick }) => {
   const { userId } = authStore((store) => store);
   return (
     <div className="comment-container">
-      {/*comments && comments.map */}
       {comments?.map((comment, index) => {
         return (
           <div key={index} className="comment-content">
@@ -32,7 +31,6 @@ const Comments = ({ comments, onClick }) => {
               <Button
                 className="delete-comment"
                 label={<VscTrash />}
-                // label="delete this comment"
                 onClick={onClick}></Button>
             )}
           </div>

@@ -15,7 +15,6 @@ const register = async (req, res, next) => {
         {
           email: email,
         },
-        // { phone: phone },
       ],
     });
   } catch (err) {
@@ -80,7 +79,6 @@ const login = async (req, res, next) => {
         {
           email: email,
         },
-        //   { phone: email },
       ],
     });
   } catch (err) {

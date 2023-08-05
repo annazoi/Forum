@@ -1,7 +1,5 @@
 .comment-container {
   display: grid;
-  /* margin: 0 auto; */
-  /* width: 100%; */
   grid-gap: 40px;
   grid-template-rows: auto;
   grid-template-columns: repeat(1, 1fr);
@@ -10,14 +8,12 @@
 
 .comment-content {
   display: flex;
-  /* flex-wrap: wrap; */
   gap: 10px;
   word-break: break-word;
   line-height: 30px;
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
-  /* border: 1px solid #ccc; */
   background-color: rgba(134, 112, 144, 0.4);
 }
 
@@ -26,14 +22,12 @@
   height: 50px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
   border-radius: 50%;
-  /* border: 1px solid #ccc; */
 }
 
 .comment-description {
   display: grid;
   text-align: left;
   width: 100%;
-  /* border: 1px solid #ccc; */
 }
 
 .comment-description a {

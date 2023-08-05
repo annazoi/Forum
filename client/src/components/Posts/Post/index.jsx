@@ -1,7 +1,6 @@
-import { useState } from "react";
 import "./style.css";
 import { authStore } from "../../../store/auth";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../ui/Button";
 import { formatDate } from "../../../utils/date";
 import { VscTrash } from "react-icons/vsc";
