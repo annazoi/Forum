@@ -12,6 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/annazoi/forum.git"
   },
+  "workspaces": [
+    "./forum/client",
+    "./forum/server"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
