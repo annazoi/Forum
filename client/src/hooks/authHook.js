@@ -12,15 +12,11 @@ export const useAuthHook = () => {
       setLoading(true);
       const response = await Axios.post(`${API_URL}auth/login`, data);
       setLoading(false);
-      if (response?.data) {
-        setData(response.data);
-      } else {
-        setError(response?.data.message);
-      }
+      setData(response.data);
     } catch (err) {
       setLoading(false);
       const message = err.response?.data.message;
-      setError(message);
+      setError(message ? message : "Could not login User");
     }
   };
 

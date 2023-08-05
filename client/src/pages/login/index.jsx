@@ -37,11 +37,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     try {
-      if (data) {
-        loginUser(data);
-      } else {
-        console.log("sd");
-      }
+      loginUser(data);
     } catch (err) {
       console.log("Could not login");
     }

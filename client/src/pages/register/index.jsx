@@ -8,8 +8,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ImagePicker from "../../components/ui/ImagePicker";
 import Form from "../../components/Form";
+import { authStore } from "../../store/auth";
 
 const Register = () => {
+  const { logIn } = authStore((store) => store);
   const { registerUser, loading, error, data } = useAuthHook();
   const navigate = useNavigate();
   const {
@@ -31,7 +33,13 @@ const Register = () => {
 
   useEffect(() => {
     if (!data) return;
-    if (data.token) return navigate("/login");
+    if (data.token) {
+      logIn({
+        token: data.token,
+        userId: data.userId,
+      });
+      navigate("/home");
+    }
   }, [data]);
 
   const onSubmit = (data) => {
@@ -58,8 +66,8 @@ const Register = () => {
         {/* <input placeholder="test" name="test" onChange={handleTest} />
           <input placeholder="test2" name="test2" onChange={handleTest} /> */}
         <Form errors={errors} register={register}></Form>
-
         <ImagePicker onChange={handleImage} />
+        <p>Select Avatar</p>
 
         {error && (
           <h1
@@ -73,7 +81,7 @@ const Register = () => {
         <Button
           type="submit"
           label={loading ? "Loanding" : "Sign Up"}
-          style={{ marginTop: "20px" }}
+          style={{ marginTop: "10px" }}
         />
       </form>
     </div>
