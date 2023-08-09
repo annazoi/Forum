@@ -75,7 +75,6 @@ const Home = () => {
           name="title"
           type="text"
           placeholder="Title"
-          className="title-post"
           register={register}
         />
         <Textarea

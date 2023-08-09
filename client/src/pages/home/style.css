@@ -13,18 +13,6 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.title-post {
-  color: rgba(238, 238, 238, 0.835);
-  border-radius: 7px;
-  background-color: rgba(193, 196, 194, 0.5);
-  margin: auto;
-  text-align: center;
-  background-color: transparent;
-  border-bottom: 2px rgba(193, 196, 194, 0.5) solid;
-  font-size: 18px;
-  letter-spacing: 4px;
-}
-
 h1 {
   color: rgb(169, 148, 148);
   text-transform: uppercase;
@@ -33,7 +21,6 @@ h1 {
   letter-spacing: 4px;
   font-weight: 400;
   margin: 0 auto;
-  opacity: 1;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
