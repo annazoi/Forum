@@ -8,13 +8,13 @@
   font-size: 18px;
   color: #fff;
   letter-spacing: 4px;
-  font-weight: 400;
+  font-weight: 600;
   margin: 0 auto;
 }
 
 .input-container:focus {
   outline: 0;
-  border-bottom-color: lightblue;
+  border-bottom-color: rgb(255, 255, 255);
 }
 
 .error-container {
