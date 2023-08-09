@@ -5,19 +5,18 @@
   grid-gap: 25px;
   margin-top: 30px;
   margin: 0 auto;
-  max-width: 1200px;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin: 40px;
+
+  /* max-width: 1200px; */
 }
 
 .post-content {
   word-break: break-word;
-  background-color: rgba(134, 112, 144, 0.3);
-  padding: 10px;
+  background-color: rgba(134, 112, 144, 0.2);
+  padding: 20px;
   padding-left: 35px;
   padding-right: 35px;
   margin: 15px 0px;
-  opacity: 0.8;
   cursor: pointer;
   border-radius: 20px;
   font-size: 15px;
@@ -27,7 +26,7 @@
   overflow: hidden;
   z-index: 1;
   /* border: 1px solid #ccc; */
-  line-height: 60px;
+  line-height: 45px;
   box-shadow: 6px 6px 12px rgba(134, 112, 144),
     -6px -6px 12px rgb(255, 255, 255);
 }
@@ -52,8 +51,8 @@
 .post-container a {
   font-size: 20px;
   text-decoration: none;
-  text-transform: uppercase;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 600;
+  font-family: "Franklin Gothic Medium", Arial;
   color: var(--link-color);
 }
 

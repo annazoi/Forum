@@ -1,6 +1,6 @@
 .specificPost-container {
   display: grid;
-  grid-gap: 40px;
+  grid-gap: 15px;
   background-color: rgba(134, 112, 144, 0.3);
   margin: 0 auto;
   border-radius: 10px;
@@ -21,18 +21,12 @@
   display: grid;
   grid-template-columns: 1fr;
   text-align: center;
-  padding: 10px;
-  -radius: 10px;
-
+  border-radius: 10px;
+  /* border: 1px solid #ccc; */
+  grid-gap: 20px;
   line-height: 30px;
-  padding: 20px;
+  padding: 25px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
   background-color: rgba(134, 112, 144, 0.4);
-}
-
-.create-comment-button {
-  margin-bottom: 30px;
-  margin-right: 50px;
-  margin-left: 50px;
 }

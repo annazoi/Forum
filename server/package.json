@@ -4,7 +4,8 @@
   "description": "rest api using MongoDb",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start-old": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "Ann Zoi",
   "license": "ISC",

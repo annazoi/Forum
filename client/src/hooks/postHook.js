@@ -17,8 +17,7 @@ export const usePostHook = () => {
       setLoading(true);
       const response = await Axios.post(`${API_URL}posts`, data, config);
       setLoading(false);
-      console.log(response.data.post);
-      return response.data.post;
+      return response.data;
     } catch (err) {
       setLoading(false);
     }

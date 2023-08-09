@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./style.css";
 import { formatDate } from "../../utils/date";
-import Button from "../../components/ui/Button";
+import Button from "../ui/Button";
 import { authStore } from "../../store/auth";
 import { VscTrash } from "react-icons/vsc";
 

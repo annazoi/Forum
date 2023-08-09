@@ -70,9 +70,13 @@ const Login = () => {
         />
       </form>
       {!isLoggedIn && (
-        <h1>
-          You don't have account; <Link to="/register">Register</Link>
-        </h1>
+        <>
+          <h1 style={{ marginBottom: "20px" }}>You don't have account;</h1>
+          <h1>
+            {" "}
+            <Link to="/register">Register</Link>
+          </h1>
+        </>
       )}
     </div>
   );

@@ -1,4 +1,3 @@
-const { deserialize } = require("mongodb");
 const Post = require("../model/Post");
 
 const createComment = async (req, res) => {
