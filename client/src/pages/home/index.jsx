@@ -11,7 +11,7 @@ import { authStore } from "../../store/auth";
 import Posts from "../../components/Posts";
 import Search from "../../components/Search";
 import Spinner from "../../components/ui/Spinner";
-
+import { Link } from "react-router-dom";
 const Home = () => {
   const { isLoggedIn } = authStore((store) => store);
 
@@ -88,7 +88,17 @@ const Home = () => {
           type="submit"
           label={loading && posts.length > 0 ? "Loading" : "Post"}
         />
+        {!isLoggedIn && (
+          <>
+            <h1>You don't have account;</h1>
+            <h1>
+              {" "}
+              <Link to="/register">Register</Link>
+            </h1>
+          </>
+        )}
       </form>
+
       <Search onChange={handleFilterChange}></Search>
       {loading ? (
         <Spinner loading={loading}></Spinner>

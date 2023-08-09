@@ -87,11 +87,9 @@ const post = () => {
             <Post post={post} onClick={removePost}></Post>
             {!isLoggedIn && (
               <>
-                <h1>
-                  Please connect first to comment{" "}
-                  <Link to="/login">
-                    <b>Login</b>
-                  </Link>
+                <h1>Please connect first to comment</h1>
+                <h1 style={{ fontWeight: "bold" }}>
+                  <Link to="/login">Login</Link>
                 </h1>
               </>
             )}
@@ -106,7 +104,6 @@ const post = () => {
               register={register}
             />
             <Button
-              className="create-comment-button"
               type="submit"
               label={loading ? "Loading " : "Comment"}
               onClick={onSubmit}
