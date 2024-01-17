@@ -29,11 +29,6 @@ app.use(cors());
 app.use("/api/posts", postRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-// ROUTES
-// GET() -> fetch the data
-// POST() -> push the data
-// PATCH() -> updated
-// DELETE() -> delete the data
 
 // Connect the mongoDB
 mongoose.connect(process.env.DB_CONNECTION).then(() => {
