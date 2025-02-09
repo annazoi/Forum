@@ -14,7 +14,8 @@ const Button = ({
       style={style}
       onClick={onClick}
       className={`button-container button-${variant} ${className}`}
-      type={type}>
+      type={type}
+    >
       {label}
       {icon && icon}
     </button>

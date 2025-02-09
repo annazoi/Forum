@@ -73,7 +73,8 @@ const Register = () => {
           <h1
             style={{
               marginTop: "10px",
-            }}>
+            }}
+          >
             {error}
           </h1>
         )}
