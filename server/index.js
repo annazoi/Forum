@@ -30,6 +30,11 @@ app.use("/api/posts", postRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
+// hello
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 // Connect the mongoDB
 mongoose.connect(process.env.DB_CONNECTION).then(() => {
   // Listening port
