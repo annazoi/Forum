@@ -26,9 +26,9 @@ app.use(
 app.use(cors());
 
 // Import the Routes
-app.use("/api/posts", postRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
+app.use("/posts", postRoutes);
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 
 // hello
 app.get("/", (req, res) => {
