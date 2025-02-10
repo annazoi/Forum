@@ -13,6 +13,14 @@
 
 .login-form a {
   color: var(--link-color);
+  text-decoration: none;
+  font-size: 15px;
+  border-radius: 8px;
+  padding: 4px;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  background-color: #5a3a7460;
+  box-shadow: rgba(0, 0, 0, 0.32) 0px 5px 10px;
 }
 
 .login-button {

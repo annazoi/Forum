@@ -19,19 +19,20 @@ const Comments = ({ comments, onClick }) => {
             />
 
             <div className="comment-description">
-              <span>
+              <text>
                 <Link to={`/profile/${comment.creatorId._id}`}>
                   {comment.creatorId.username}
                 </Link>{" "}
                 {comment.description}
                 <h1 style={{ fontSize: "12px" }}>{formatDate(comment.date)}</h1>
-              </span>
+              </text>
             </div>
             {comment.creatorId && userId === comment.creatorId._id && (
               <Button
                 className="delete-comment"
                 label={<VscTrash />}
-                onClick={onClick}></Button>
+                onClick={onClick}
+              ></Button>
             )}
           </div>
         );

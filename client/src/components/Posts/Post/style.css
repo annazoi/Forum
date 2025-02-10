@@ -7,5 +7,41 @@
   background-color: rgba(134, 112, 144, 0.4);
   /* border: 1px solid #ccc; */
   word-break: break-all;
-  grid-gap: 30px;
+  /* grid-gap: 10px; */
+}
+
+.post-base-md {
+  display: grid;
+  grid-gap: 10px;
+  margin-bottom: 20px;
+  padding: 20px;
+  line-height: 30px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 15px;
+  background-color: rgba(134, 112, 144, 0.4);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.post-title-base-md {
+  font-size: 20px;
+  color: var(--link-color);
+  letter-spacing: 1px;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 768px) {
+  .specificPost-content {
+    padding: 20px;
+    line-height: 30px;
+  }
+
+  .post-base-md {
+    padding: 10px;
+    line-height: 20px;
+  }
+
+  .post-title-base-md {
+    font-size: 15px;
+  }
 }

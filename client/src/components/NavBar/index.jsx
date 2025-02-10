@@ -75,7 +75,8 @@ const NavBar = () => {
                         : " rgba(134, 112, 144, 0.5)",
                   }}
                   to={link.path}
-                  onClick={() => onClick(link)}>
+                  onClick={() => onClick(link)}
+                >
                   {" "}
                   {link.label}{" "}
                 </Link>
@@ -92,7 +93,8 @@ const NavBar = () => {
                         : " rgba(134, 112, 144, 0.5)",
                   }}
                   to={link.path}
-                  onClick={() => onClick(link)}>
+                  onClick={() => onClick(link)}
+                >
                   {" "}
                   {link.label}{" "}
                 </Link>

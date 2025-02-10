@@ -25,6 +25,8 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  display: grid;
+
   /* border: 1px solid #ccc; */
   line-height: 45px;
   box-shadow: 6px 6px 12px rgba(134, 112, 144),
@@ -49,7 +51,8 @@
 }
 
 .post-container a {
-  font-size: 20px;
+  font-size: 17px;
+  line-height: 25px;
   text-decoration: none;
   font-weight: 600;
   font-family: "Franklin Gothic Medium", Arial;
@@ -65,5 +68,16 @@
 @media only screen and (max-width: 500px) {
   .post-container {
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post-content {
+    padding: 10px;
+    line-height: 20px;
+  }
+
+  .post-container a {
+    font-size: 14px;
   }
 }

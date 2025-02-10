@@ -10,34 +10,19 @@ const Post = ({ post, onClick }) => {
 
   return (
     <div className="specificPost-content">
-      <div
-        style={{
-          display: "grid",
-          gap: "5px",
-          margin: "10px",
-        }}
-      >
-        <span
+      <div className="post-base-md">
+        <text
           style={{
-            borderBottom: "3px solid rgba(101, 101, 101, 0.252)",
+            fontSize: "12px",
             color: "white",
             fontFamily: "Arial, sans-serif",
             letterSpacing: "4px",
           }}
         >
           Your Story
-        </span>
-        <span style={{ fontSize: "20px" }}>
-          <b>{post.title}</b>
-        </span>
-        <span
-          style={{
-            fontSize: "16px",
-            // borderBottom: "3px solid rgba(101, 101, 101, 0.252)",
-          }}
-        >
-          {post.description}
-        </span>
+        </text>
+        <text className="post-title-base-md">{post.title}</text>
+        <text>{post.description}</text>
       </div>
       {post.creatorId && userId === post.creatorId._id && (
         <Button
@@ -47,14 +32,27 @@ const Post = ({ post, onClick }) => {
         ></Button>
       )}
       <span>
-        <h1>
+        <h1
+          style={{
+            marginTop: "10px",
+          }}
+        >
           Story By:{" "}
           <Link to={`/profile/${post?.creatorId?._id}`}>
             {post?.creatorId?.username}
           </Link>
         </h1>
       </span>
-      <span>{formatDate(post?.date)}</span>
+      <text
+        style={{
+          fontSize: "12px",
+          color: "var(--link-color)",
+          fontFamily: "Arial, sans-serif",
+          letterSpacing: "4px",
+        }}
+      >
+        Date: {formatDate(post?.date)}
+      </text>
     </div>
   );
 };

@@ -38,3 +38,10 @@
 .delete-comment {
   height: 40px;
 }
+
+@media screen and (max-width: 768px) {
+  .comment-description {
+    padding: 10px;
+    line-height: 20px;
+  }
+}

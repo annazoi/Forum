@@ -8,7 +8,17 @@ const Posts = ({ posts }) => {
         return (
           <Link key={index} className="post-content" to={`/post/${post._id}`}>
             {post.title}
-            <h1 style={{ fontSize: "15px" }}> Your Story</h1>
+            <text
+              style={{
+                color: "white",
+                letterSpacing: "3px",
+                marginTop: "10px",
+                textTransform: "uppercase",
+              }}
+            >
+              {" "}
+              Your Story
+            </text>
           </Link>
         );
       })}
