@@ -70,7 +70,9 @@ const Home = () => {
   return (
     <>
       <form className="create-post-form" onSubmit={handleSubmit(onSubmit)}>
-        <h1 style={{ fontWeight: "bold" }}>Start a forum with a new post</h1>
+        <h1 style={{ fontWeight: "bold", color: "var(--link-color)" }}>
+          Start a forum with a new post
+        </h1>
         <Input
           name="title"
           type="text"
@@ -109,7 +111,8 @@ const Home = () => {
             marginTop: "50px",
             marginBottom: "100px",
             textAlign: "center",
-          }}>
+          }}
+        >
           {error}
         </h1>
       ) : (
