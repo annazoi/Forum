@@ -45,7 +45,9 @@ const Login = () => {
 
   return (
     <div className="login-form">
-      <h1 style={{ fontWeight: "bold" }}>Sign In</h1>
+      <h1 style={{ fontWeight: "bold", color: "var(--link-color)" }}>
+        Sign In
+      </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="email"

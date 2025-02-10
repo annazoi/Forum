@@ -60,7 +60,9 @@ const Register = () => {
 
   return (
     <div className="register-form">
-      <h1 style={{ fontWeight: "bold" }}>Register</h1>
+      <h1 style={{ fontWeight: "bold", color: "var(--link-color)" }}>
+        Register
+      </h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* <input placeholder="test" name="test" onChange={handleTest} />
