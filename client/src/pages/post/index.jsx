@@ -78,7 +78,8 @@ const post = () => {
               margin: "0 auto",
               marginTop: "150px",
               textAlign: "center",
-            }}>
+            }}
+          >
             {error}
           </h1>
         ) : (
